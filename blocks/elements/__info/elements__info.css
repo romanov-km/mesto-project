@@ -1,0 +1,7 @@
+.elements__info {
+    border-radius: 0 0 10px 10px;
+    padding: 25px 15px 31px 21px;
+    display: flex;
+    max-width: 246px;
+    justify-content: space-between;
+}
