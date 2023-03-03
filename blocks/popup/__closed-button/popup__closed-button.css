@@ -9,17 +9,19 @@
     position: absolute;
     top: 161px;
     right:  385px;
+    background-image: url(../../../images/Close\ Icon.svg);
 }
 
 .popup__closed-button:hover {
     opacity: 0.8;
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 435px) {
     .popup__closed-button {
         width: 20px;
         height: 20px;
-        top: 170px;
-        right:  18px;
+        top: -35px;
+        right:  19px;
+        background-size: cover;
     }
 }

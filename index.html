@@ -14,20 +14,18 @@
     
     <main class="content">
         <section class="profile">
-            <img src="./images/image.jpg" class="profile__avatar" alt="Аватар профиля пользователя">
+            <div class="profile__avatar"></div>
             
             <div class="profile__info">
                 <div class="profile__info-block">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <button class="profile__editbutton">
-                        <img src="./images/pencil.svg" alt="Кнопка правки">
+                    <button class="profile__edit-button" type="button">
                     </button>
                 </div>
                 <p class="profile__activity">Исследователь океана</p>
             </div>
             
-            <button class="profile__addbutton">
-                <img src="./images/plus.svg" class="profile__addbutton-image" alt="Кнопка добавления">
+            <button class="profile__add-button" type="button">
             </button>
 
         </section>
@@ -36,50 +34,50 @@
 
             <ul class="elements__list">
                 <li class="elements__item">
-                    <img src="./images/kirill-pershin-1088404-unsplash.jpg" class="elements__image">
+                    <img src="./images/kirill-pershin-1088404-unsplash.jpg" class="elements__image" alt="Старинная церковь на фоне гор">
                     <div class="elements__info">
-                        <p class="elements__title">Карачаевск</p>
-                        <button class="elements__button-like">
+                        <h2 class="elements__title">Карачаевск</h2>
+                        <button class="elements__button-like" type="button">
                         </button>
                     </div>
                 </li>
                 <li class="elements__item">
-                    <img src="./images/kirill-pershin-1404681-unsplash.jpg" class="elements__image">
+                    <img src="./images/Untitled Project.jpg" class="elements__image" alt="Гора Эльбрус на фоне степи">
                     <div class="elements__info">
-                        <p class="elements__title">Гора Эльбрус</p>
-                        <button class="elements__button-like">
+                        <h2 class="elements__title">Гора Эльбрус</h2>
+                        <button class="elements__button-like" type="button">
                         </button>
                     </div>
                 </li>
                 <li class="elements__item">
-                    <img src="./images/kirill-pershin-1556355-unsplash.jpg" class="elements__image">
+                    <img src="./images/kirill-pershin-1556355-unsplash.jpg" class="elements__image" alt="Хвойный лес и на заднем плане гора Домбай">
                     <div class="elements__info">
-                        <p class="elements__title">Домбай</p>
-                        <button class="elements__button-like">
+                        <h2 class="elements__title">Домбай</h2>
+                        <button class="elements__button-like" type="button">
                         </button>
                     </div>
                 </li>
                 <li class="elements__item">
-                    <img src="./images/kirill-pershin-1088404-unsplash.jpg" class="elements__image">
+                    <img src="./images/kirill-pershin-1404681-unsplash.jpg" class="elements__image" alt="Гора Эльбрус на фоне степи">
                     <div class="elements__info">
-                        <p class="elements__title">Гора Эльбрус</p>
-                        <button class="elements__button-like">
+                        <h2 class="elements__title">Гора Эльбрус</h2>
+                        <button class="elements__button-like" type="button">
                         </button>
                     </div>
                 </li>
                 <li class="elements__item">
-                    <img src="./images/kirill-pershin-1088404-unsplash.jpg" class="elements__image">
+                    <img src="./images/kirill-pershin-1556355-unsplash.jpg" class="elements__image" alt="Хвойный лес и на заднем плане гора Домбай">
                     <div class="elements__info">
-                        <p class="elements__title">Домбай</p>
-                        <button class="elements__button-like">
+                        <h2 class="elements__title">Домбай</h2>
+                        <button class="elements__button-like" type="button">
                         </button>
                     </div>
                 </li>
                 <li class="elements__item">
-                    <img src="./images/kirill-pershin-1088404-unsplash.jpg" class="elements__image">
+                    <img src="./images/kirill-pershin-1088404-unsplash.jpg" class="elements__image" alt="Старинная церковь на фоне гор">
                     <div class="elements__info">
-                        <p class="elements__title">Карачаево-Черкессия</p>
-                        <button class="elements__button-like">
+                        <h2 class="elements__title">Карачаево-Черкессия</h2>
+                        <button class="elements__button-like" type="button">
                         </button>
                     </div>
                 </li>
@@ -87,21 +85,21 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <p class="footer__copyright">&copy; 2023 - Romanov Kirill</p>
     </footer>
     
     <div class="popup">
-        <form class="popup__form">
-            <p class="popup__title">Редактировать профиль</p>
-            <input type="text" class="popup__text-name" value="Жак-Ив Кусто">
-            <input type="text" class="popup__text-activity" value="Исследователь океана">
-            <button type="submit" class="popup__submit">Сохранить</button>
-            <button class="popup__closed-button">
-                <img src="./images/Close Icon.svg" class="popup__closed-button-icon" alt="Иконка закрытия модального окна">
+        <div class="popup__container">
+            <button class="popup__closed-button" type="button">
             </button>
-        </form>
-        
+            <h3 class="popup__title">Редактировать профиль</h3>
+            <form class="popup__form" name="" method="post" action="#">
+                <input type="text" class="popup__text-input" value="Жак-Ив Кусто" name="name">
+                <input type="text" class="popup__text-input" value="Исследователь океана" name="activity">
+                <button type="submit" class="popup__submit">Сохранить</button>
+            </form>
+        </div>
     </div>
 
 </body>

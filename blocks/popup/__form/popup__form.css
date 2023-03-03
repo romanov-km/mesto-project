@@ -1,18 +1,14 @@
 .popup__form {
     background-color: #FFF;
-    width: 430px;
-    height: 330px;
-    border-radius: 10px;
+    position: relative;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
 }
 
-@media screen and (max-width: 414px) {
-    .popup__form {
-        width: 282px;
-        height: 322px;
+
+@media screen and (max-width: 435px) {
+    .popup__form :nth-child(2) {
+    margin-bottom: 0px;
     }
 }
 

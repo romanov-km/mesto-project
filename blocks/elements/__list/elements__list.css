@@ -11,7 +11,6 @@
 @media screen and (max-width: 888px) {
     .elements__list {
         grid-template-columns: repeat(2, 282px); 
-        grid-template-rows: 361px;
     }
 }
 
@@ -19,6 +18,5 @@
 @media screen and (max-width: 591px) {
     .elements__list {
         grid-template-columns: repeat(1, 282px); 
-        grid-template-rows: 361px;
     }
 }

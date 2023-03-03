@@ -1,11 +1,9 @@
 .popup__submit {
-    border: none;
+    padding: 0;
     background-color: black;
     color: #FFF;
-    margin-top: 48px;
     width: 358px;
     height: 50px;
-    margin-bottom: 37px;
     cursor: pointer;
     font-weight: 400;
     font-size: 18px;
@@ -17,14 +15,13 @@
     opacity: 0.8;
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 435px) {
     .popup__submit {
         margin: 0;
         padding: 0;
         width: 238px;
-        margin-top: 43px;
+        margin-top: 45px;
         height: 46px;
-        margin-bottom: 25px;
         font-size: 14px;
         line-height: 17px;
     }
