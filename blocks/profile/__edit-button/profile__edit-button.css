@@ -15,6 +15,7 @@
         height: 18px;
         width: 18px;
         margin-top: 33px;
+        transform: translate(10px);
     }
 }
 

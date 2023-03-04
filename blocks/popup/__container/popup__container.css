@@ -8,6 +8,7 @@
     padding-right: 36px;
     padding-left: 36px;
     border-radius: 10px;
+    height: 259px;
 }
 
 @media screen and (max-width: 435px) {
