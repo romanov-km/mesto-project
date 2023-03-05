@@ -3,7 +3,6 @@
     margin: 40px auto 51px auto;
     display: grid;
     grid-template-columns: 120px auto 150px;
-    grid-template-rows: 120px;
 }
 
 @media screen and (max-width: 647px) {

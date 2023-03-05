@@ -3,21 +3,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    margin: 54px 0 48px 0;
+    width: 100%;
 }
 
-
-@media screen and (max-width: 435px) {
-    .popup__form :nth-child(2) {
-    margin-bottom: 0px;
-    }
-}
-
-.popup__form :nth-child(2) {
-    margin-bottom: 48px;
-}
-
-@media screen and (max-width: 647px) {
-    .popup__form :nth-child(2) {
-        margin-bottom: 45px;
-    }
+.popup__form :not(:last-child) {
+    margin-bottom: 30px;
 }

@@ -4,4 +4,8 @@
     border-radius: 10px;
     background-color: #FFF;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: 282px;
+    grid-template-rows: 282px 79px;
+    gap: 0px 0px;
 }
