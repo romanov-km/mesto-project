@@ -8,8 +8,8 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    top: -41px;
-    right:  -39px;
+    top: -40px;
+    right:  -40px;
     background-image: url(../../../images/Close\ Icon.svg);
 }
 
@@ -21,7 +21,7 @@
     .popup__closed-button {
         width: 20px;
         height: 20px;
-        top: -50px;
+        top: -36px;
         right:  0px;
     }
 }

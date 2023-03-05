@@ -1,12 +1,16 @@
 .popup__form {
     background-color: #FFF;
     position: relative;
-    display: flex;
+    display: grid;
+    gap: 30px;
     flex-direction: column;
-    margin: 54px 0 48px 0;
+    margin: 54px 0 0 0;
     width: 100%;
 }
 
-.popup__form :not(:last-child) {
-    margin-bottom: 30px;
+@media screen and (max-width: 435px) {
+    .popup__form {
+        margin-top: 75px;
+    }
+    
 }

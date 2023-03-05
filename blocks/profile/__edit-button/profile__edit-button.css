@@ -19,6 +19,9 @@
         width: 18px;
         margin-top: 33px;
         background-size: 7.5px 7.5px;
+        position: relative;
+        top: 0px;
+        left: 10px;
     }
 }
 

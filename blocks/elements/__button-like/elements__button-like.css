@@ -1,5 +1,6 @@
 .elements__button-like {
     border: none;
+    margin: 0;
     padding: 0;
     width: 22px;
     height: 19px;
@@ -7,6 +8,11 @@
     align-self: center;
     background-color: transparent;
     cursor: pointer;
+    display: flex;
+    background-repeat: no-repeat;
+    margin-top: 5px;
+    align-self: normal;
+    margin-right: 5px;
 }
 
 .elements__button-like:hover {
