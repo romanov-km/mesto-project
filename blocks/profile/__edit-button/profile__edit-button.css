@@ -17,11 +17,10 @@
     .profile__edit-button {
         height: 18px;
         width: 18px;
-        margin-top: 33px;
+        margin-top: 34px;
         background-size: 7.5px 7.5px;
         position: relative;
-        top: 0px;
-        left: 10px;
+        margin-right: 19px;
     }
 }
 

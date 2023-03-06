@@ -14,12 +14,12 @@
 
 @media screen and (max-width: 647px) {
     .profile__name {
-        max-width: 189px;
+        margin-right: 0;
         font-size: 27px;
-        line-height: 33px;
-        text-align: center;
+        line-height: 34px;
         margin-top: 26px;
-        margin-left: 18px;
-        margin-right: 0px;
+        display: flex;
+        flex-basis: 74%;
+        justify-content: center;
     }
 }
