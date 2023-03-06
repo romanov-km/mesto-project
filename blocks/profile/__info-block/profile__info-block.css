@@ -6,7 +6,6 @@
 
 @media screen and (max-width: 647px) {
     .profile__info-block {
-        display: flex;
-        justify-content: end;
+        justify-content: center;
     }
 }
