@@ -3,21 +3,29 @@ import initialCards from '../vendor/cards.js';
 const popup = document.querySelector('.popup');
 
 const openPopupButton = document.querySelector('.profile__edit-button');
-openPopupButton.addEventListener('click', togglePopup);
+openPopupButton.addEventListener('click', openPopup);
 
 const closePopupButton = document.querySelector('.popup__closed-button');
-closePopupButton.addEventListener('click', togglePopup);
+closePopupButton.addEventListener('click', closePopup);
+
 
 // функция открытия и закрытия попапа на профиле
-function togglePopup() {
-    popup.classList.toggle('popup_opened');
+function openPopup() {
+    popup.classList.add('popup_opened');
+    nameInput.value = document.querySelector('.profile__name').textContent;
+    jobInput.value = document.querySelector('.profile__activity').textContent;
+}
+
+function closePopup() {
+    popup.classList.remove('popup_opened');
 }
 
 // Находим форму в DOM
 const formElement = document.querySelector('.popup__form');
 // Находим поля формы в DOM
-const nameInput = document.querySelector('#form-edit-profile input[name="name"]');
 const jobInput = document.querySelector('#form-edit-profile input[name="activity"]');
+const nameInput = document.querySelector('#form-edit-profile input[name="name"]');
+
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -32,7 +40,7 @@ function handleFormSubmit(evt) {
     // Вставьте новые значения с помощью textContent
     newName.textContent = nameInput.value;
     newActivity.textContent = jobInput.value;
-    togglePopup();
+    closePopup();
 }
 
 // Прикрепляем обработчик к форме:
@@ -45,8 +53,12 @@ function createCard(cardUrlValue, cardTitleValue) {
     const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
     cardElement.querySelector('.elements__image').src = cardUrlValue;
     cardElement.querySelector('.elements__title').textContent = cardTitleValue;
+    cardElement.querySelector('.elements__button-like').addEventListener('click', function (evt) {
+        evt.target.classList.toggle('elements__button-like_active');
+    });
     return cardElement
 }
+
 
 
 // функция вставляет разметку карточки в DOM
