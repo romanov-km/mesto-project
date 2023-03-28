@@ -32,56 +32,8 @@
 
         <section class="elements">
 
-            <ul class="elements__list">
-                <li class="elements__item">
-                    <img src="./images/Untitled-Project.jpg" class="elements__image" alt="Старинная церковь на фоне гор">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Карачаевск</h2>
-                        <button class="elements__button-like" type="button">
-                        </button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img src="./images/kirill-pershin-1404681-unsplash.jpg" class="elements__image" alt="Гора Эльбрус на фоне степи">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Гора Эльбрус</h2>
-                        <button class="elements__button-like" type="button">
-                        </button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img src="./images/kirill-pershin-1556355-unsplash.jpg" class="elements__image" alt="Хвойный лес и на заднем плане гора Домбай">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Домбай</h2>
-                        <button class="elements__button-like" type="button">
-                        </button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img src="./images/kirill-pershin-1404681-unsplash.jpg" class="elements__image" alt="Гора Эльбрус на фоне степи">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Гора Эльбрус</h2>
-                        <button class="elements__button-like" type="button">
-                        </button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img src="./images/kirill-pershin-1556355-unsplash.jpg" class="elements__image" alt="Хвойный лес и на заднем плане гора Домбай">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Домбай</h2>
-                        <button class="elements__button-like" type="button">
-                        </button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img src="./images/kirill-pershin-1088404-unsplash.jpg" class="elements__image" alt="Старинная церковь на фоне гор">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Карачаево-Черкессия</h2>
-                        <button class="elements__button-like" type="button">
-                        </button>
-                    </div>
-                </li>
-            </ul>
+            <ul class="elements__list"></ul>
+
         </section>
     </main>
 
@@ -101,7 +53,18 @@
             </button>
         </div>
     </div>
-    <script src="./cards.js"></script>
-    <script src="./script.js"></script>
+
+    <template id="card">
+        <li class="elements__item">
+            <img src="" class="elements__image" alt="">
+            <div class="elements__info">
+                <h2 class="elements__title"></h2>
+                <button class="elements__button-like" type="button">
+                </button>
+            </div>
+        </li>
+    </template>
+
+    <script type="module" src="./script.js"></script>
 </body>
 </html>
