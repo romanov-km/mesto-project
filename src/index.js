@@ -51,6 +51,10 @@ formElement.addEventListener('submit', handleFormSubmit);
 function createCard(cardUrlValue, cardTitleValue) {
     const cardTemplate = document.querySelector('#card').content;
     const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
+    
+    const buttonCardDelete = cardElement.querySelector('.elements__button-delete');
+    buttonCardDelete.addEventListener('click', deleteCardButton);
+    
     cardElement.querySelector('.elements__image').src = cardUrlValue;
     cardElement.querySelector('.elements__title').textContent = cardTitleValue;
     cardElement.querySelector('.elements__button-like').addEventListener('click', function (evt) {
@@ -59,8 +63,6 @@ function createCard(cardUrlValue, cardTitleValue) {
     return cardElement
 }
 
-
-
 // функция вставляет разметку карточки в DOM
 
 function renderCards() {
@@ -68,6 +70,11 @@ function renderCards() {
     for(let i = 0; i < initialCards.length; i++) {
     cardsContainer.append(createCard(initialCards[i].link, initialCards[i].name));
     }
+}
+
+// функция удаления карточки
+function deleteCardButton(evt) {
+    evt.target.closest('li').remove();
 }
 
 renderCards();

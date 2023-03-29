@@ -8,4 +8,5 @@
     grid-template-columns: 282px;
     grid-template-rows: 282px 79px;
     gap: 0px 0px;
+    position: relative;
 }
