@@ -1,12 +1,46 @@
 import initialCards from '../vendor/cards.js';
 
 const popup = document.querySelector('.popup');
+const addpopup = document.querySelector('.add-popup');
 
 const openPopupButton = document.querySelector('.profile__edit-button');
 openPopupButton.addEventListener('click', openPopup);
-
 const closePopupButton = document.querySelector('.popup__closed-button');
 closePopupButton.addEventListener('click', closePopup);
+
+
+const openAddPopupButton = document.querySelector('.profile__add-button');
+openAddPopupButton.addEventListener('click', openAddPopup);
+const closeAddPopupButton = document.querySelector('.add-popup__closed-button');
+closeAddPopupButton.addEventListener('click', closeAddPopup);
+
+
+const urlInput = document.querySelector('#form-add-card input[name="url"]');
+const nameAddInput = document.querySelector('#form-add-card input[name="name"]');
+
+//функция открытия и закрытия попапа добавления карточки
+function openAddPopup() {
+    addpopup.classList.add('add-popup_opened');
+    
+}
+
+function closeAddPopup() {
+    addpopup.classList.remove('add-popup_opened');
+    urlInput.value = '';
+    nameAddInput.value = '';
+}
+//выбираем контейнер куда будут вставляться карточки
+const cardsContainer = document.querySelector('.elements__list');
+
+const addCardForm = document.querySelector('.add-popup__form');
+
+// функция добавления новой карточки
+function addCardSubmit(evt) {
+    evt.preventDefault(); //отменяет стандартную отравку формы
+    cardsContainer.prepend(createCard(urlInput.value, nameAddInput.value));
+}
+
+addCardForm.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
 
 
 // функция открытия и закрытия попапа на профиле
@@ -66,7 +100,6 @@ function createCard(cardUrlValue, cardTitleValue) {
 // функция вставляет разметку карточки в DOM
 
 function renderCards() {
-    const cardsContainer = document.querySelector('.elements__list');
     for(let i = 0; i < initialCards.length; i++) {
     cardsContainer.append(createCard(initialCards[i].link, initialCards[i].name));
     }

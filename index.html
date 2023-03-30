@@ -40,6 +40,19 @@
     <footer class="footer">
         <p class="footer__copyright">&copy; 2023 - Romanov Kirill</p>
     </footer>
+
+    <div class="add-popup">
+        <div class="add-popup__container">
+            <h3 class="add-popup__title">Новое место</h3>
+            <form class="add-popup__form" method="post" action="#" name="popup-window" id="form-add-card">
+                <input type="text" class="add-popup__text-input" value="" name="name" placeholder="Название">
+                <input type="text" class="add-popup__text-input" value="" name="url" placeholder="Ссылка на картинку">
+                <button type="submit" class="add-popup__submit" form="form-add-card">Создать</button>
+            </form>
+            <button class="add-popup__closed-button" type="button">
+            </button>
+        </div>
+    </div>
     
     <div class="popup">
         <div class="popup__container">

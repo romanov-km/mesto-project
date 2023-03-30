@@ -1,0 +1,16 @@
+.add-popup__form {
+    background-color: #FFF;
+    position: relative;
+    display: grid;
+    gap: 30px;
+    flex-direction: column;
+    margin: 54px 0 0 0;
+    width: 100%;
+}
+
+@media screen and (max-width: 591px) {
+    .add-popup__form {
+        margin-top: 75px;
+    }
+    
+}
