@@ -18,6 +18,14 @@ closeAddPopupButton.addEventListener('click', closeAddPopup);
 const urlInput = document.querySelector('#form-add-card input[name="url"]');
 const nameAddInput = document.querySelector('#form-add-card input[name="name"]');
 
+const imgpopup = document.querySelector('.img-popup');
+const closeImgPopupButton = document.querySelector('.img-popup__close-button');
+closeImgPopupButton.addEventListener('click', closeImgPopup);
+
+function closeImgPopup() {
+    imgpopup.classList.remove('img-popup_opened');
+}
+
 //функция открытия и закрытия попапа добавления карточки
 function openAddPopup() {
     addpopup.classList.add('add-popup_opened');
@@ -87,13 +95,17 @@ function createCard(cardUrlValue, cardTitleValue) {
     const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
     
     const buttonCardDelete = cardElement.querySelector('.elements__button-delete');
+    const buttonOpenImg = cardElement.querySelector('.elements__image');
     buttonCardDelete.addEventListener('click', deleteCardButton);
     
     cardElement.querySelector('.elements__image').src = cardUrlValue;
+    cardElement.querySelector('.elements__image').alt = cardTitleValue;
     cardElement.querySelector('.elements__title').textContent = cardTitleValue;
+    
     cardElement.querySelector('.elements__button-like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('elements__button-like_active');
     });
+    buttonOpenImg.addEventListener('click', openImgPopup);
     return cardElement
 }
 
@@ -108,6 +120,17 @@ function renderCards() {
 // функция удаления карточки
 function deleteCardButton(evt) {
     evt.target.closest('li').remove();
+}
+
+//функция открытия попапа по клику на карточку
+const urlValueImg =  document.querySelector('.img-popup__image');
+const textValueImg = document.querySelector('.img-popup__title');
+
+function openImgPopup(evt) {
+    imgpopup.classList.add('img-popup_opened');
+    urlValueImg.src = evt.target.src;
+    urlValueImg.alt = evt.target.alt;
+    textValueImg.textContent = evt.target.alt;
 }
 
 renderCards();
