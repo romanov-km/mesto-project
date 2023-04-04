@@ -1,93 +1,83 @@
-import initialCards from '../vendor/cards.js';
+import initialCards from './cards.js';
 
-const popup = document.querySelector('.popup');
-const addpopup = document.querySelector('.add-popup');
+// handleformsubmit
+let newName = document.querySelector('.profile__name'); // более явное наименование
+let newActivity = document.querySelector('.profile__activity'); // более явное наименование
 
-const openPopupButton = document.querySelector('.profile__edit-button');
-openPopupButton.addEventListener('click', openPopup);
-const closePopupButton = document.querySelector('.popup__closed-button');
-closePopupButton.addEventListener('click', closePopup);
+// Находим поля формы в DOM
+const inputNameFormProfile = document.querySelector('#form-edit-profile input[name="name"]'); //имя фикс
+const inputJobFormProfile = document.querySelector('#form-edit-profile input[name="activity"]'); // имя фикс
 
+const urlValueImg =  document.querySelector('.img-popup__image');
+const textValueImg = document.querySelector('.img-popup__title');
 
-const openAddPopupButton = document.querySelector('.profile__add-button');
-openAddPopupButton.addEventListener('click', openAddPopup);
-const closeAddPopupButton = document.querySelector('.add-popup__closed-button');
-closeAddPopupButton.addEventListener('click', closeAddPopup);
+const profileEditFormPopup = document.querySelector('.popup'); //имя фикс
+const cardAddFormPopup = document.querySelector('.add-popup'); //
 
+const profileEditFormOpenButton = document.querySelector('.profile__edit-button'); //
+const profileEditFormCloseButton = document.querySelector('.popup__closed-button'); //
 
+const cardAddFormOpenButton = document.querySelector('.profile__add-button');
+const cardAddFormCloseButton = document.querySelector('.add-popup__closed-button');
+
+const profileEditForm = document.querySelector('.popup__form');
+
+const formAddCard = document.querySelector('#form-add-card');
 const urlInput = document.querySelector('#form-add-card input[name="url"]');
 const nameAddInput = document.querySelector('#form-add-card input[name="name"]');
 
-const imgpopup = document.querySelector('.img-popup');
+const cardImgFullSizePopup = document.querySelector('.img-popup');
 const closeImgPopupButton = document.querySelector('.img-popup__close-button');
-closeImgPopupButton.addEventListener('click', closeImgPopup);
 
-function closeImgPopup() {
-    imgpopup.classList.remove('img-popup_opened');
-}
-
-//функция открытия и закрытия попапа добавления карточки
-function openAddPopup() {
-    addpopup.classList.add('add-popup_opened');
-    
-}
-
-function closeAddPopup() {
-    addpopup.classList.remove('add-popup_opened');
-    urlInput.value = '';
-    nameAddInput.value = '';
-}
 //выбираем контейнер куда будут вставляться карточки
 const cardsContainer = document.querySelector('.elements__list');
 
 const addCardForm = document.querySelector('.add-popup__form');
 
+//функция закрытия большой картинки
+
+
+//функция открытия и закрытия попапа добавления карточки
+function openAddPopup() {
+    cardAddFormPopup.classList.add('add-popup_opened');
+    formAddCard.reset();
+}
+
+function closeAddPopup() {
+    cardAddFormPopup.classList.remove('add-popup_opened');
+    
+}
+
 // функция добавления новой карточки
 function addCardSubmit(evt) {
     evt.preventDefault(); //отменяет стандартную отравку формы
     cardsContainer.prepend(createCard(urlInput.value, nameAddInput.value));
+    closeAddPopup();
+    
 }
-
-addCardForm.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
-
 
 // функция открытия и закрытия попапа на профиле
 function openPopup() {
-    popup.classList.add('popup_opened');
-    nameInput.value = document.querySelector('.profile__name').textContent;
-    jobInput.value = document.querySelector('.profile__activity').textContent;
+    profileEditFormPopup.classList.add('popup_opened');
+    inputNameFormProfile.value = document.querySelector('.profile__name').textContent;
+    inputJobFormProfile.value = document.querySelector('.profile__activity').textContent;
 }
 
 function closePopup() {
-    popup.classList.remove('popup_opened');
+    profileEditFormPopup.classList.remove('popup_opened');
 }
 
 // Находим форму в DOM
-const formElement = document.querySelector('.popup__form');
-// Находим поля формы в DOM
-const jobInput = document.querySelector('#form-edit-profile input[name="activity"]');
-const nameInput = document.querySelector('#form-edit-profile input[name="name"]');
 
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
-function handleFormSubmit(evt) {
+function handleProfileEditFormSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     // Получите значение полей jobInput и nameInput из свойства value
-    let jobValue = jobInput.value;
-    let nameValue = nameInput.value;
     // Выберите элементы, куда должны быть вставлены значения полей
-    let newName = document.querySelector('.profile__name');
-    let newActivity = document.querySelector('.profile__activity');
     // Вставьте новые значения с помощью textContent
-    newName.textContent = nameInput.value;
-    newActivity.textContent = jobInput.value;
+    newName.textContent = inputNameFormProfile.value;
+    newActivity.textContent = inputJobFormProfile.value;
     closePopup();
 }
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit);
 
 // функция получает данные для создания карточки и возвращает готовую разметку
 function createCard(cardUrlValue, cardTitleValue) {
@@ -122,15 +112,31 @@ function deleteCardButton(evt) {
     evt.target.closest('li').remove();
 }
 
-//функция открытия попапа по клику на карточку
-const urlValueImg =  document.querySelector('.img-popup__image');
-const textValueImg = document.querySelector('.img-popup__title');
+//функция закрытия открытия попапа по клику на карточку
+function closeImgPopup() {
+    cardImgFullSizePopup.classList.remove('img-popup_opened');
+}
 
 function openImgPopup(evt) {
-    imgpopup.classList.add('img-popup_opened');
+    cardImgFullSizePopup.classList.add('img-popup_opened');
     urlValueImg.src = evt.target.src;
     urlValueImg.alt = evt.target.alt;
     textValueImg.textContent = evt.target.alt;
 }
 
 renderCards();
+
+
+profileEditFormOpenButton.addEventListener('click', openPopup);
+profileEditFormCloseButton.addEventListener('click', closePopup);
+
+cardAddFormOpenButton.addEventListener('click', openAddPopup);
+cardAddFormCloseButton.addEventListener('click', closeAddPopup);
+
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+profileEditForm.addEventListener('submit', handleProfileEditFormSubmit);
+
+closeImgPopupButton.addEventListener('click', closeImgPopup);
+
+addCardForm.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
