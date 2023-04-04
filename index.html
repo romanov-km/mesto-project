@@ -45,8 +45,8 @@
         <div class="add-popup__container">
             <h3 class="add-popup__title">Новое место</h3>
             <form class="add-popup__form" method="post" action="#" name="popup-window" id="form-add-card">
-                <input type="text" class="add-popup__text-input" value="" name="name" placeholder="Название">
-                <input type="url" class="add-popup__text-input" value="" name="url" placeholder="Ссылка на картинку">
+                <input type="text" class="add-popup__text-input" value="" name="name" placeholder="Название" required>
+                <input type="url" class="add-popup__text-input" value="" name="url" placeholder="Ссылка на картинку" required>
                 <button type="submit" class="add-popup__submit" form="form-add-card">Создать</button>
             </form>
             <button class="add-popup__closed-button" type="button">
@@ -58,8 +58,8 @@
         <div class="popup__container">
             <h3 class="popup__title">Редактировать профиль</h3>
             <form class="popup__form" method="post" action="#" name="popup-window" id="form-edit-profile">
-                <input type="text" class="popup__text-input" value="" name="name" placeholder="Имя">
-                <input type="text" class="popup__text-input" value="" name="activity" placeholder="Род деятельности">
+                <input type="text" class="popup__text-input" value="" name="name" placeholder="Имя" required>
+                <input type="text" class="popup__text-input" value="" name="activity" placeholder="Род деятельности" required>
                 <button type="submit" class="popup__submit" form="form-edit-profile">Сохранить</button>
             </form>
             <button class="popup__closed-button" type="button">
@@ -80,7 +80,6 @@
     </template>
 
     <div class="img-popup">
-        
         <div class="img-popup__container">
             <button class="img-popup__close-button"></button>
             <img src="" alt="" class="img-popup__image">
