@@ -1,8 +1,7 @@
 import initialCards from './cards.js';
 
-
-let newNameInputFormProfile = document.querySelector('.profile__name'); // более явное наименование
-let newActivityInputFormProfile = document.querySelector('.profile__activity'); // более явное наименование
+const newNameFormProfile = document.querySelector('.profile__name'); 
+const newActivityFormProfile = document.querySelector('.profile__activity');
 
 // Находим поля формы в DOM
 const inputNameFormProfile = document.querySelector('#form-edit-profile input[name="name"]');
@@ -11,7 +10,7 @@ const inputJobFormProfile = document.querySelector('#form-edit-profile input[nam
 const urlValueImg =  document.querySelector('.img-popup__image');
 const textValueImg = document.querySelector('.img-popup__title');
 
-const popupProfileEditForm = document.querySelector('.popup'); 
+const popupProfileEditForm = document.querySelector('.profile-popup'); 
 const popupCardAddForm = document.querySelector('.add-popup'); 
 
 const buttonOpenProfileEditForm = document.querySelector('.profile__edit-button'); 
@@ -22,17 +21,16 @@ const buttonCloseCardAddForm = document.querySelector('.add-popup__closed-button
 
 const formProfileEdit = document.querySelector('.popup__form');
 
-const formCardAdd = document.querySelector('#form-add-card');
-const urlInput = document.querySelector('#form-add-card input[name="url"]');
-const nameInput = document.querySelector('#form-add-card input[name="name"]');
+const formCardAdd = document.querySelector('#form-add-card'); //
+
+const inputUrlFormAddCard  = document.querySelector('#form-add-card input[name="url"]');
+const  inputNameFormAddCard = document.querySelector('#form-add-card input[name="name"]');
 
 const popupCardImgFullSize = document.querySelector('.img-popup');
 const butonCloseImgPopup = document.querySelector('.img-popup__closed-button');
 
 //выбираем контейнер куда будут вставляться карточки
 const containerCards = document.querySelector('.elements__list');
-
-const formAddCard = document.querySelector('.add-popup__form');
 
 // функция открытия и закрытия попапа на профиле
 function openPopup(popup) {
@@ -43,10 +41,9 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
 }
 
-
 function setProfileInputValue() {
-    inputNameFormProfile.value = document.querySelector('.profile__name').textContent;
-    inputJobFormProfile.value = document.querySelector('.profile__activity').textContent;
+    inputNameFormProfile.value = newNameFormProfile.textContent;
+    inputJobFormProfile.value = newActivityFormProfile.textContent;
 }
 
 // urlInput.value, nameInput.value
@@ -54,8 +51,8 @@ function setProfileInputValue() {
 function addCardSubmit(evt) {
     evt.preventDefault(); //отменяет стандартную отравку формы
     const newCardData = {
-        name: nameInput.value,
-        link: urlInput.value,
+        name: inputNameFormAddCard.value,
+        link: inputUrlFormAddCard.value,
     }
     containerCards.prepend(createCard(newCardData));
     closePopup(popupCardAddForm);
@@ -68,8 +65,8 @@ function handleProfileEditFormSubmit(evt) {
     // Получите значение полей jobInput и nameInput из свойства value
     // Выберите элементы, куда должны быть вставлены значения полей
     // Вставьте новые значения с помощью textContent
-    newNameInputFormProfile.textContent = inputNameFormProfile.value;
-    newActivityInputFormProfile.textContent = inputJobFormProfile.value;
+    newNameFormProfile.textContent = inputNameFormProfile.value;
+    newActivityFormProfile.textContent = inputJobFormProfile.value;
     closePopup(popupProfileEditForm);
 }
 
@@ -94,7 +91,7 @@ function createCard(cardData) {
     });
     buttonOpenImg.addEventListener('click',(evt) => {
         setImgValue(evt);
-        openPopup(popupCardImgFullSize)
+        openPopup(popupCardImgFullSize);
     });
     return cardElement
 }
@@ -117,14 +114,17 @@ function setImgValue(evt) {
 
 renderCards();
 
-buttonOpenProfileEditForm.addEventListener('click',() => {
-    openPopup(popupProfileEditForm)
+function makeProfileEditForm() {
+    openPopup(popupProfileEditForm);
     setProfileInputValue();
-});
+}
+
+buttonOpenProfileEditForm.addEventListener('click', makeProfileEditForm);
+
 buttonCloseProfileEditForm.addEventListener('click', () => closePopup(popupProfileEditForm));
 
 buttonOpenCardAddForm.addEventListener('click',() => {
-    openPopup(popupCardAddForm)
+    openPopup(popupCardAddForm);
     formCardAdd.reset();
 });
 buttonCloseCardAddForm.addEventListener('click', () => closePopup(popupCardAddForm));
@@ -135,4 +135,4 @@ formProfileEdit.addEventListener('submit', handleProfileEditFormSubmit);
 
 butonCloseImgPopup.addEventListener('click', () => {closePopup(popupCardImgFullSize)});
 
-formAddCard.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
+formCardAdd.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
