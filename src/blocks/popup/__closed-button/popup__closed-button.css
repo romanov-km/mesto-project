@@ -10,7 +10,7 @@
     cursor: pointer;
     top: -40px;
     right:  -40px;
-    background-image: url(../../../images/Close\ Icon.svg);
+    background-image: url(/src/images/close-icon.svg);
 }
 
 .popup__closed-button:hover {

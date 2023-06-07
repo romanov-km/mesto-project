@@ -1,0 +1,12 @@
+.add-popup__input-error {
+    opacity: 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 5px;
+    margin-bottom: 13px;
+    color: #FF0000;
+    transition: 0.3s;
+    flex-wrap: wrap;
+    max-width: 358px;
+}

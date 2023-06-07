@@ -5,16 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
     <header class="header">
-        <img src="./images/logo.svg" class="header__logo" alt="Логотип сайта">
+        <img src="<%=require('./images/logo.svg')%>" class="header__logo" alt="Логотип сайта">
     </header>
     
     <main class="content">
         <section class="profile">
-            <div class="profile__avatar" style="background-image: url('./images/Untitled-Project.jpg');"></div>
+            <div class="profile__avatar" style="background-image: url('<%=require('./images/Untitled-Project.jpg')%>');"></div>
             
             <div class="profile__info">
                 <div class="profile__info-block">
@@ -44,9 +43,11 @@
     <div class="popup add-popup">
         <div class="add-popup__container">
             <h3 class="add-popup__title">Новое место</h3>
-            <form class="add-popup__form" method="post" action="#" name="popup-window" id="form-add-card">
-                <input type="text" class="add-popup__text-input" value="" name="name" placeholder="Название" required>
-                <input type="url" class="add-popup__text-input" value="" name="url" placeholder="Ссылка на картинку" required>
+            <form class="add-popup__form" method="post" action="#" name="popup-window" id="form-add-card" novalidate>
+                <input id="name-input" type="text" class="add-popup__text-input" value="" name="name" placeholder="Название" required minlength="2" maxlength="30" pattern="^[А-Яа-яЁёa-zA-z0-9\s-]+$" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                <span class="name-input-error add-popup__input-error"></span>
+                <input id="url-input" type="url" class="add-popup__text-input" value="" name="url" placeholder="Ссылка на картинку" required>
+                <span class="url-input-error add-popup__input-error"></span>
                 <button type="submit" class="add-popup__submit" form="form-add-card">Создать</button>
             </form>
             <button class="add-popup__closed-button" type="button">
@@ -57,10 +58,12 @@
     <div class="popup profile-popup">
         <div class="popup__container">
             <h3 class="popup__title">Редактировать профиль</h3>
-            <form class="popup__form" method="post" action="#" name="popup-window" id="form-edit-profile">
-                <input type="text" class="popup__text-input" value="" name="name" placeholder="Имя" required>
-                <input type="text" class="popup__text-input" value="" name="activity" placeholder="Род деятельности" required>
-                <button type="submit" class="popup__submit" form="form-edit-profile">Сохранить</button>
+            <form class="add-popup__form" method="post" action="#" name="popup-window" id="form-edit-profile" novalidate>
+                <input id="name-input" type="text" class="add-popup__text-input" value="" name="name" placeholder="Имя" required minlength="2" maxlength="40" pattern="^[А-Яа-яЁёa-zA-z0-9\s-]+$" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                <span class="name-input-error add-popup__input-error"></span>
+                <input id="activity-input" type="text" class="add-popup__text-input" value="" name="activity" placeholder="Род деятельности" required minlength="2" maxlength="200" pattern="^[А-Яа-яЁёa-zA-z0-9\s-]+$" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                <span class="activity-input-error add-popup__input-error"></span>
+                <button type="submit" class="add-popup__submit" form="form-edit-profile">Сохранить</button>
             </form>
             <button class="popup__closed-button" type="button">
             </button>
@@ -86,7 +89,5 @@
             <p class="img-popup__title"></p>
         </div>
     </div>
-
-    <script type="module" src="./src/index.js"></script>
 </body>
 </html>

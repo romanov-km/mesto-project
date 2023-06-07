@@ -1,4 +1,5 @@
 import initialCards from './cards.js';
+import './pages/index.css'; // добавьте импорт главного файла стилей
 
 // const popupAll = document.querySelectorAll('.popup');
 
@@ -12,16 +13,16 @@ const inputJobFormProfile = document.querySelector('#form-edit-profile input[nam
 const urlValueImg =  document.querySelector('.img-popup__image');
 const textValueImg = document.querySelector('.img-popup__title');
 
-const popupProfileEditForm = document.querySelector('.profile-popup'); 
-const popupCardAddForm = document.querySelector('.add-popup'); 
+const popupProfileEditForm = document.querySelector('.profile-popup');
+const popupCardAddForm = document.querySelector('.add-popup');
 
-const buttonOpenProfileEditForm = document.querySelector('.profile__edit-button'); 
+const buttonOpenProfileEditForm = document.querySelector('.profile__edit-button');
 const buttonCloseProfileEditForm = document.querySelector('.popup__closed-button');
 
 const buttonOpenCardAddForm = document.querySelector('.profile__add-button');
 const buttonCloseCardAddForm = document.querySelector('.add-popup__closed-button');
 
-const formProfileEdit = document.querySelector('.popup__form');
+const formProfileEdit = document.querySelector('#form-edit-profile');
 
 const formCardAdd = document.querySelector('#form-add-card'); //
 
@@ -29,7 +30,7 @@ const inputUrlFormAddCard  = document.querySelector('#form-add-card input[name="
 const  inputNameFormAddCard = document.querySelector('#form-add-card input[name="name"]');
 
 const popupCardImgFullSize = document.querySelector('.img-popup');
-const butonCloseImgPopup = document.querySelector('.img-popup__closed-button');
+const buttonCloseImgPopup = document.querySelector('.img-popup__closed-button');
 
 //выбираем контейнер куда будут вставляться карточки
 const containerCards = document.querySelector('.elements__list');
@@ -138,6 +139,93 @@ function handleEscKey() {
     });
 }
 
+const showInputError = (formElement, inputElement, errorMessage) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add('add-popup__text-input_type_error');
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('add-popup__input-error_active');
+}
+
+const hideInputError = (formElement, inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove('add-popup__text-input_type_error');
+    errorElement.classList.remove('add-popup__input-error_active');
+    errorElement.textContent = '';
+}
+
+const isValid = (formElement, inputElement) => {
+    if (inputElement.validity.patternMismatch) {
+        // встроенный метод setCustomValidity принимает на вход строку
+        // и заменяет ею стандартное сообщение об ошибке
+        inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+    } else {
+        // если передать пустую строку, то будут доступны
+        // стандартные браузерные сообщения
+        inputElement.setCustomValidity('');
+    }
+    if (!inputElement.validity.valid) {
+        // третьим аргументом мы передаём сообщение об ошибке,
+        // которое получаем из validationMessage
+        // теперь, если ошибка вызвана регулярным выражением,
+        // переменная validationMessage хранит наше кастомное сообщение
+        showInputError(formElement, inputElement, inputElement.validationMessage);
+    } else {
+        hideInputError(formElement, inputElement);
+    }
+}
+
+const setEventListeners = (formElement) => {
+    // Находим все поля внутри формы,
+    // сделаем из них массив методом Array.from
+    const inputList = Array.from(formElement.querySelectorAll('.add-popup__text-input'));
+    // найдем кнопочку
+    const buttonElement = formElement.querySelector('.add-popup__submit');
+    toggleButtonState(inputList, buttonElement);
+    // Обойдём все элементы полученной коллекции
+    inputList.forEach((inputElement) => {
+      // каждому полю добавим обработчик события input
+      inputElement.addEventListener('input', () => {
+        // Внутри колбэка вызовем isValid,
+        // передав ей форму и проверяемый элемент
+        isValid(formElement, inputElement);
+        toggleButtonState(inputList, buttonElement);
+      });
+    });
+  }; 
+
+const enableValidation = () => {
+    // Найдём все формы с указанным классом в DOM,
+    // сделаем из них массив методом Array.from
+    const formList = Array.from(document.querySelectorAll('.add-popup__form'));
+    // Переберём полученную коллекцию
+    formList.forEach((formElement) => {
+      // Для каждой формы вызовем функцию setEventListeners,
+      // передав ей элемент формы
+      setEventListeners(formElement);
+    });
+};
+
+const hasInvalidInput = (inputList) => {
+    return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+    })
+}
+
+//функция активирования кнопки
+const toggleButtonState = (inputList, buttonElement) => {
+    if (hasInvalidInput(inputList)) {
+        buttonElement.disabled = true;
+        buttonElement.classList.add('add-popup__submit_inactive');
+    } else {
+        buttonElement.disabled = false;
+        buttonElement.classList.remove('add-popup__submit_inactive');
+    }
+}
+
+
+// Вызовем функцию
+enableValidation(); 
+
 handleEscKey();
 handleOverlay();
 
@@ -155,6 +243,6 @@ buttonCloseCardAddForm.addEventListener('click', () => closePopup(popupCardAddFo
 // она никуда отправляться не будет
 formProfileEdit.addEventListener('submit', handleProfileEditFormSubmit);
 
-butonCloseImgPopup.addEventListener('click', () => {closePopup(popupCardImgFullSize)});
+buttonCloseImgPopup.addEventListener('click', () => {closePopup(popupCardImgFullSize)});
 
 formCardAdd.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
