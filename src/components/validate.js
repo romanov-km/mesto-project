@@ -43,14 +43,14 @@ const setEventListeners = (formElement, settings) => {
     // Обойдём все элементы полученной коллекции
     inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
-      inputElement.addEventListener('input', () => {
+    inputElement.addEventListener('input', () => {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
         isValid(formElement, inputElement, settings);
         toggleButtonState(inputList, buttonElement, settings);
-      });
     });
-  };
+    });
+};
 
 const enableValidation = (settings) => {
     // Найдём все формы с указанным классом в DOM,
@@ -58,12 +58,12 @@ const enableValidation = (settings) => {
     const formList = Array.from(document.querySelectorAll(settings.formSelector));
     // Переберём полученную коллекцию
     formList.forEach((formElement) => {
-      formElement.addEventListener('submit', function(evt) {
+        formElement.addEventListener('submit', function(evt) {
         evt.preventDefault();
     })  
       // Для каждой формы вызовем функцию setEventListeners,
       // передав ей элемент формы
-      setEventListeners(formElement, settings);
+    setEventListeners(formElement, settings);
     });
 };
 
@@ -84,4 +84,22 @@ const toggleButtonState = (inputList, buttonElement, settings) => {
     }
 }
 
-export default enableValidation; 
+const makeButtonDisabled = (buttonElement, settings) => {
+    buttonElement.disabled = true;
+    buttonElement.classList.add('add-popup__submit_inactive');
+}
+
+function clearErrors(formElement) {
+    const inputElements = formElement.querySelectorAll('.add-popup__text-input'); // Выбираем все поля ввода внутри формы
+    // Удаляем все текст ошибки
+    formElement.querySelectorAll('.add-popup__input-error').forEach((errorElement) => {
+        errorElement.textContent = '';
+    });
+     // Проверяем каждое поле ввода и стираем класс
+    inputElements.forEach((inputElement) => {
+        inputElement.classList.remove('add-popup__text-input_type_error');
+    });
+}
+
+
+export {enableValidation, makeButtonDisabled, clearErrors}; 
