@@ -84,22 +84,17 @@ const toggleButtonState = (inputList, buttonElement, settings) => {
     }
 }
 
-const makeButtonDisabled = (buttonElement, settings) => {
+export const makeButtonDisabled = (buttonElement, settings) => {
     buttonElement.disabled = true;
-    buttonElement.classList.add('add-popup__submit_inactive');
+    buttonElement.classList.add(settings.inactiveButtonClass);
 }
 
-function clearErrors(formElement) {
-    const inputElements = formElement.querySelectorAll('.add-popup__text-input'); // Выбираем все поля ввода внутри формы
-    // Удаляем все текст ошибки
-    formElement.querySelectorAll('.add-popup__input-error').forEach((errorElement) => {
-        errorElement.textContent = '';
-    });
-     // Проверяем каждое поле ввода и стираем класс
+export const clearErrors = (formElement, settings) => {
+    const inputElements = formElement.querySelectorAll(settings.inputSelector); // Выбираем все поля ввода внутри формы
+     // Проверяем каждое поле ввода и стираем ошибки
     inputElements.forEach((inputElement) => {
-        inputElement.classList.remove('add-popup__text-input_type_error');
+        hideInputError(formElement, inputElement, settings);
     });
 }
 
-
-export {enableValidation, makeButtonDisabled, clearErrors}; 
+export {enableValidation}; 

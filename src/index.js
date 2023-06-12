@@ -21,6 +21,7 @@ const formCardAdd = document.querySelector('#form-add-card'); //
 const buttonCloseImgPopup = document.querySelector('.img-popup__closed-button');
 const popupCardImgFullSize = document.querySelector('.img-popup');
 
+const submitButton = document.querySelector('.add-popup__submit');
 
 // Находим поля формы в DOM
 const inputNameFormProfile = document.querySelector('#form-edit-profile input[name="name"]');
@@ -58,11 +59,14 @@ enableValidation({
     inactiveButtonClass: 'add-popup__submit_inactive',
     inputErrorClass: 'add-popup__text-input_type_error',
     errorClass: 'add-popup__input-error_active'
-}); 
+});
 
 renderCards();
 
-buttonOpenProfileEditForm.addEventListener('click', makeProfileEditForm);
+buttonOpenProfileEditForm.addEventListener('click',() => {
+    makeProfileEditForm();
+    clearErrors(formProfileEdit, settings);
+});
 
 buttonCloseProfileEditForm.addEventListener('click', () => {
     closePopup(popupProfileEditForm);
@@ -71,13 +75,13 @@ buttonCloseProfileEditForm.addEventListener('click', () => {
 buttonOpenCardAddForm.addEventListener('click',() => {
     openPopup(popupCardAddForm);
     formCardAdd.reset();
-    const buttonElement = document.querySelector('.add-popup__submit');
-    makeButtonDisabled(buttonElement);
+    makeButtonDisabled(submitButton, settings);
+    clearErrors(formCardAdd, settings);
 });
 
 buttonCloseCardAddForm.addEventListener('click', () => {
     closePopup(popupCardAddForm);
-    clearErrors(popupCardAddForm);
+    
 });
 
 // Обработчик «отправки» формы, хотя пока
@@ -87,5 +91,14 @@ formProfileEdit.addEventListener('submit', handleProfileEditFormSubmit);
 buttonCloseImgPopup.addEventListener('click', () => {closePopup(popupCardImgFullSize)});
 
 formCardAdd.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
+
+const settings = {
+    formSelector: '.add-popup__form',
+    inputSelector: '.add-popup__text-input',
+    submitButtonSelector: '.add-popup__submit',
+    inactiveButtonClass: 'add-popup__submit_inactive',
+    inputErrorClass: 'add-popup__text-input_type_error',
+    errorClass: 'add-popup__input-error_active'
+};
 
 export default enableValidation;
