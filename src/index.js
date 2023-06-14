@@ -5,6 +5,15 @@ import {closePopup, openPopup} from './components/modal.js';
 import { clearErrors } from './components/validate.js';
 
 
+const settings = {
+    formSelector: '.add-popup__form',
+    inputSelector: '.add-popup__text-input',
+    submitButtonSelector: '.add-popup__submit',
+    inactiveButtonClass: 'add-popup__submit_inactive',
+    inputErrorClass: 'add-popup__text-input_type_error',
+    errorClass: 'add-popup__input-error_active'
+};
+
 const popupProfileEditForm = document.querySelector('.profile-popup');
 const popupCardAddForm = document.querySelector('.add-popup');
 
@@ -52,14 +61,7 @@ function makeProfileEditForm() {
     setProfileInputValue();
 }
 
-enableValidation({
-    formSelector: '.add-popup__form',
-    inputSelector: '.add-popup__text-input',
-    submitButtonSelector: '.add-popup__submit',
-    inactiveButtonClass: 'add-popup__submit_inactive',
-    inputErrorClass: 'add-popup__text-input_type_error',
-    errorClass: 'add-popup__input-error_active'
-});
+enableValidation(settings);
 
 renderCards();
 
@@ -81,7 +83,6 @@ buttonOpenCardAddForm.addEventListener('click',() => {
 
 buttonCloseCardAddForm.addEventListener('click', () => {
     closePopup(popupCardAddForm);
-    
 });
 
 // Обработчик «отправки» формы, хотя пока
@@ -91,14 +92,5 @@ formProfileEdit.addEventListener('submit', handleProfileEditFormSubmit);
 buttonCloseImgPopup.addEventListener('click', () => {closePopup(popupCardImgFullSize)});
 
 formCardAdd.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
-
-const settings = {
-    formSelector: '.add-popup__form',
-    inputSelector: '.add-popup__text-input',
-    submitButtonSelector: '.add-popup__submit',
-    inactiveButtonClass: 'add-popup__submit_inactive',
-    inputErrorClass: 'add-popup__text-input_type_error',
-    errorClass: 'add-popup__input-error_active'
-};
 
 export default enableValidation;

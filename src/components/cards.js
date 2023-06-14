@@ -1,5 +1,7 @@
 import {setImgValue, initialCards, containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard, popupCardAddForm} from "./utils";
 import {openPopup, closePopup} from "./modal";
+import { addCard, deleteCard, getAllCards } from "./api";
+
 
 // urlInput.value, nameInput.value
 // функция добавления новой карточки
@@ -9,7 +11,10 @@ function addCardSubmit(evt) {
         name: inputNameFormAddCard.value,
         link: inputUrlFormAddCard.value,
     }
-    containerCards.prepend(createCard(newCardData));
+    addCard(newCardData)
+        .then((dataCard) => {
+            containerCards.prepend(createCard(dataCard));
+        })
     closePopup(popupCardAddForm);
 }
 
@@ -22,7 +27,13 @@ function createCard(cardData) {
     
     const buttonCardDelete = cardElement.querySelector('.elements__button-delete');
     const buttonOpenImg = cardElement.querySelector('.elements__image');
-    buttonCardDelete.addEventListener('click', deleteCardButton);
+    buttonCardDelete.addEventListener('click', () => {
+        deleteCard(cardData._id)
+            .then(() => {
+                cardElement.remove();
+                //deleteCardButton
+            })
+        });
     
     buttonOpenImg.src = urlCard;
     buttonOpenImg.alt = nameCard;
@@ -35,7 +46,11 @@ function createCard(cardData) {
 
 // функция вставляет разметку карточки в DOM
 function renderCards() {
-    initialCards.forEach((card) => {containerCards.append(createCard(card))})
+    getAllCards()
+        .then(allCards => {
+            allCards.forEach((card) => {containerCards.append(createCard(card))})
+        })
+    
 }
 
 // функция удаления карточки

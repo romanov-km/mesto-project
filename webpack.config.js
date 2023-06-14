@@ -12,6 +12,7 @@ module.exports = {
         filename: 'main.js',
         publicPath: ''
     },
+    devtool: 'eval-source-map',
     // указали (точку выхода) в какой файл будет собираться весь js и дали ему имя 
     mode: 'development', // добавили режим разработчика
     devServer: {
@@ -54,7 +55,8 @@ module.exports = {
       },
       plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html' // путь к файлу index.html
+            template: './src/index.html', // путь к файлу index.html
+            inject: 'body'
           }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin()
