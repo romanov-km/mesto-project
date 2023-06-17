@@ -1,13 +1,3 @@
-// return fetch('https://nomoreparties.co/v1/plus-cohort-25/cards', {
-//     headers: {
-//         authorization: '35842094-b102-48a4-b183-719cf536cb76'
-//     }
-// })
-//     .then(res => res.json())
-//     .then((result) => {
-//     console.log(result);
-// });
-
 const config = {
     baseUrl: 'https://nomoreparties.co/v1/plus-cohort-25',
     headers: {
@@ -28,7 +18,6 @@ export function getAllCards() {
         .then(onResponse)
 }
 
-//getAllCards();
 export function getProfileInfo() {
     return fetch(`${config.baseUrl}/users/me`, {
         method: 'GET',
