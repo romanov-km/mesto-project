@@ -1,50 +1,13 @@
-import {setImgValue, initialCards, containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard, popupCardAddForm} from "./utils";
+import {setImgValue, containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard, popupCardAddForm} from "./utils";
 import {openPopup, closePopup} from "./modal";
-import { addCard, deleteCard, getAllCards } from "./api";
+import { addCard, getAllCards, getProfileInfo, likeCard, unlikeCard } from "./api";
+import { handleClickDelete } from "..";
+import { setStatusButton } from "..";
+import { submitButtonCard } from "./utils";
 
+let userId = 0;
 
-// urlInput.value, nameInput.value
-// функция добавления новой карточки
-function addCardSubmit(evt) {
-    evt.preventDefault(); //отменяет стандартную отравку формы
-    const newCardData = {
-        name: inputNameFormAddCard.value,
-        link: inputUrlFormAddCard.value,
-    }
-    addCard(newCardData)
-        .then((dataCard) => {
-            containerCards.prepend(createCard(dataCard));
-        })
-    closePopup(popupCardAddForm);
-}
-
-// функция получает данные для создания карточки и возвращает готовую разметку
-function createCard(cardData) {
-    const nameCard = cardData.name;
-    const urlCard = cardData.link;
-    const cardTemplate = document.querySelector('#card').content;
-    const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
-    
-    const buttonCardDelete = cardElement.querySelector('.elements__button-delete');
-    const buttonOpenImg = cardElement.querySelector('.elements__image');
-    buttonCardDelete.addEventListener('click', () => {
-        deleteCard(cardData._id)
-            .then(() => {
-                cardElement.remove();
-                //deleteCardButton
-            })
-        });
-    
-    buttonOpenImg.src = urlCard;
-    buttonOpenImg.alt = nameCard;
-    cardElement.querySelector('.elements__title').textContent = nameCard;
-    
-    cardElement.querySelector('.elements__button-like').addEventListener('click', makeLikeInCard);
-    buttonOpenImg.addEventListener('click', openPopupImgFullSize);
-    return cardElement
-}
-
-// функция вставляет разметку карточки в DOM
+// функция вставляет разметку карточек в DOM
 function renderCards() {
     getAllCards()
         .then(allCards => {
@@ -53,9 +16,81 @@ function renderCards() {
     
 }
 
-// функция удаления карточки
-function deleteCardButton(evt) {
-    evt.target.closest('li').remove();
+// urlInput.value, nameInput.value
+// функция добавления новой карточки
+function addCardSubmit(evt) {
+    evt.preventDefault(); //отменяет стандартную отравку формы
+    setStatusButton({buttonElement: submitButtonCard, text: 'Сохранение...', disabled: true});
+    const newCardData = {
+        name: inputNameFormAddCard.value,
+        link: inputUrlFormAddCard.value,
+    }
+    addCard(newCardData)
+        .then((dataCard) => {
+            containerCards.prepend(createCard(dataCard));
+            closePopup(popupCardAddForm);
+        })
+        .catch((err) => {console.log(err)})
+        .finally(() => {
+            setStatusButton({buttonElement: submitButtonCard, text: 'Сохранить', disabled: false});
+        });
+    
+}
+
+Promise.all([getProfileInfo()])
+    .then(([user]) => {
+    userId = user._id
+    })
+    .catch(err => console.log(err))
+
+// функция получает данные для создания карточки и возвращает готовую разметку
+function createCard(cardData) {
+    const nameCard = cardData.name;
+    const urlCard = cardData.link;
+    const cardTemplate = document.querySelector('#card').content;
+    const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
+
+    const buttonCardDelete = cardElement.querySelector('.elements__button-delete');
+    
+    if (cardData.owner._id !== userId) {
+        buttonCardDelete.remove();
+    }
+    buttonCardDelete.addEventListener('click', () => handleClickDelete(cardData, cardElement));
+
+    const buttonOpenImg = cardElement.querySelector('.elements__image');
+    buttonOpenImg.src = urlCard;
+    buttonOpenImg.alt = nameCard;
+
+    cardElement.querySelector('.elements__title').textContent = nameCard;
+    
+    //likes 
+    const cardLike = cardElement.querySelector('.elements__number-like');
+    cardLike.textContent = cardData.likes.length;
+    
+    const cardButtonLike = cardElement.querySelector('.elements__button-like')  
+    if (cardData.likes.find((likes) => likes._id === userId)) {
+        makeLikeInCard(cardButtonLike);
+    }
+    
+    cardButtonLike.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('elements__button-like_active')) {
+            unlikeCard(cardData._id)
+                .then((dataLike) => {
+                    cardLike.textContent = dataLike.likes.length;
+                    makeLikeInCard(cardButtonLike);
+                })
+                .catch((error => {console.log(error)}))
+        } else {
+                likeCard(cardData._id)
+                .then((dataLike) => {
+                    cardLike.textContent = dataLike.likes.length;
+                    makeLikeInCard(cardButtonLike);
+                })
+                .catch((error) => {console.log(error)})
+        }
+    });
+    buttonOpenImg.addEventListener('click', openPopupImgFullSize);
+    return cardElement
 }
 
 const openPopupImgFullSize = (evt) => {
@@ -63,8 +98,8 @@ const openPopupImgFullSize = (evt) => {
   openPopup(popupCardImgFullSize);
 }
 
-const makeLikeInCard = (evt) => {
-  evt.target.classList.toggle('elements__button-like_active');
+const makeLikeInCard = (target) => {
+    target.classList.toggle('elements__button-like_active');
 }
 
 export {renderCards, addCardSubmit};

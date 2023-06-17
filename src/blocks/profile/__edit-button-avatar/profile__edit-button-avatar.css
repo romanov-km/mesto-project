@@ -1,0 +1,12 @@
+.profile__edit-button-avatar {
+    padding: 0;
+    position: absolute;
+    top: 47px;
+    left: 47px;
+    height: 26px;
+    width: 26px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    background-image: url(../../../images/pencil-avatar.svg);
+}

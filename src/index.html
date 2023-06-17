@@ -13,7 +13,14 @@
     
     <main class="content">
         <section class="profile">
-            <div class="profile__avatar" style="background-image: url('<%=require('./images/Untitled-Project.jpg')%>');"></div>
+            
+            <div class="profile__container-avatar">
+                <img class="profile__avatar" src="<%=require('./images/Untitled-Project.jpg')%>">
+                <div class="profile__overlay">
+                    <button class="profile__edit-button-avatar" type="button"></button>
+                </div>
+
+            </div>
             
             <div class="profile__info">
                 <div class="profile__info-block">
@@ -39,6 +46,20 @@
     <footer class="footer">
         <p class="footer__copyright">&copy; 2023 - Romanov Kirill</p>
     </footer>
+
+
+    <div class="popup avatar-popup">
+        <div class="add-popup__container">
+            <h3 class="add-popup__title">Обновить аватар</h3>
+            <form class="add-popup__form" method="post" action="#" name="popup-window" id="form-avatar-edit" novalidate>
+                <input id="url-input" type="url" class="add-popup__text-input" value="" name="url" placeholder="Ссылка на картинку для аватара" required>
+                <span class="url-input-error add-popup__input-error"></span>
+                <button type="submit" class="add-popup__submit" form="form-avatar-edit">Сохранить</button>
+            </form>
+            <button class="avatar-popup__closed-button" type="button">
+            </button>
+        </div>
+    </div>
 
     <div class="popup add-popup">
         <div class="add-popup__container">
@@ -78,6 +99,7 @@
                 <h2 class="elements__title"></h2>
                 <button class="elements__button-like" type="button">
                 </button>
+                <span class="elements__number-like">0</span>
             </div>
         </li>
     </template>

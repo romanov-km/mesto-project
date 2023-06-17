@@ -48,3 +48,9 @@
 @import url(../blocks/add-popup/__input-error/add-popup__input-error.css);
 @import url(../blocks/add-popup/__input-error/_active/add-popup__input-error_active.css);
 @import url(../blocks/add-popup/__submit/_inactive/add-popup__submit_inactive.css);
+@import url(../blocks/elements/__number-like/elements__number-like.css);
+@import url(../blocks/profile/__edit-button-avatar/profile__edit-button-avatar.css);
+@import url(../blocks/profile/__overlay/profile__overlay.css);
+@import url(../blocks/avatar-popup/avatar-popup.css);
+@import url(../blocks/profile/__container-avatar/profile__container-avatar.css);
+@import url(../blocks/avatar-popup/__closed-button/avatar-popup__closed-button.css);

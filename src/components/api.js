@@ -28,7 +28,14 @@ export function getAllCards() {
         .then(onResponse)
 }
 
-getAllCards();
+//getAllCards();
+export function getProfileInfo() {
+    return fetch(`${config.baseUrl}/users/me`, {
+        method: 'GET',
+        headers: config.headers
+    })
+        .then(onResponse)
+}
 
 export function addCard(body) {
     return fetch(`${config.baseUrl}/cards`, {
@@ -40,8 +47,19 @@ export function addCard(body) {
         .then(onResponse)
 }
 
-export function editCard(body, idCard) {
-    return fetch(`${config.baseUrl}/cards/${idCard}`, {
+export function editProfile(body) {
+    return fetch(`${config.baseUrl}/users/me`, {
+        'content-type': 'application/json',
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify(body)
+    })
+        .then(onResponse)
+}
+
+export function editAvatar(body) {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+        'content-type': 'application/json',
         method: 'PATCH',
         headers: config.headers,
         body: JSON.stringify(body)
@@ -57,34 +75,20 @@ export function deleteCard(cardId) {
         .then(onResponse)
 }
 
+//  лайк
+export function likeCard(cardId) {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: config.headers
+    })
+        .then(onResponse)
+}
 
-
-// // Не забывайте проверять, всё ли в порядке с ответом. Для этого можно использовать res.ok или res.status:
-// export const getInitialCards = () => {
-//     return fetch(`${config.baseUrl}/cards`, {
-//         headers: config.headers
-//     })
-//         .then(res => {
-//             if (res.ok) {
-//                 return res.json();
-//             }
-//         return Promise.reject(`Ошибка: ${res.status}`);
-//         });
-// }
-
-// // Используйте свойства name, about и avatar в соответствующих элементах шапки страницы. Свойство _id — идентификатор пользователя, в данном случае вашего.
-
-// export const getUserInfo = () => {
-//     return fetch(`${config.baseUrl}/users/me`, {
-//         headers: config.headers,
-//         method: 'GET'
-//     })
-//         .then(res => {
-//             if (res.ok) {
-//                 return res.json();
-//             }
-//         return Promise.reject(`Ошибка: ${res.status}`);
-//     });
-// }
-
-//У каждой карточки есть свойства name и link — это заголовок и ссылка на картинку — они понадобятся при отображении каждой отдельной карточки.
+// удаление лайка
+export function unlikeCard(cardId) {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: config.headers
+    })
+    .then(onResponse)
+}
