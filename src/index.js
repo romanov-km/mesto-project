@@ -1,11 +1,11 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей
-import { enableValidation, makeButtonDisabled } from './components/validate.js';
-import {renderCards, addCardSubmit} from './components/cards.js';
-import {closePopup, openPopup} from './components/modal.js';
-import { clearErrors } from './components/validate.js';
-import { editProfile, editAvatar, getProfileInfo, deleteCard } from './components/api';
-import { submitButtonCard, submitButtonProfile, submitButtonAvatar, popupCardAddForm, popupProfileEditForm, popupAvatarEditForm} from './components/utils';
+import { enableValidation, makeButtonDisabled, clearErrors } from './components/validate';
+import { addCardSubmit, createCard} from './components/cards';
+import {closePopup, openPopup} from './components/modal';
+import { editProfile, editAvatar, getProfileInfo, deleteCard, getAllCards } from './components/api';
+import { submitButtonCard, submitButtonProfile, submitButtonAvatar, popupCardAddForm, popupProfileEditForm, popupAvatarEditForm, containerCards} from './components/utils';
 
+export let userId = 0;
 const settings = {
     formSelector: '.add-popup__form',
     inputSelector: '.add-popup__text-input',
@@ -24,8 +24,8 @@ const buttonCloseCardAddForm = document.querySelector('.add-popup__closed-button
 const buttonOpenAvatarForm = document.querySelector('.profile__edit-button-avatar');
 const buttonCloseAvatarEditForm = document.querySelector('.avatar-popup__closed-button');
 
+// Находим форму в DOM
 const formProfileEdit = document.querySelector('#form-edit-profile');
-
 const formCardAdd = document.querySelector('#form-add-card');
 const formAvatarEdit = document.querySelector('#form-avatar-edit');
 
@@ -41,7 +41,17 @@ const newNameFormProfile = document.querySelector('.profile__name');
 const newActivityFormProfile = document.querySelector('.profile__activity');
 const newAvatarFormProfile = document.querySelector('.profile__avatar');
 
-// Находим форму в DOM
+Promise.all([getProfileInfo(), getAllCards()])
+    .then(([user, cards]) => {
+        userId = user._id
+        newNameFormProfile.textContent = user.name;
+        newActivityFormProfile.textContent = user.about;
+        newAvatarFormProfile.src = user.avatar;
+        inputNameFormProfile.value = user.name;
+        inputJobFormProfile.value = user.about;
+        cards.forEach((card) => {containerCards.append(createCard(card))})
+    })
+    .catch((error) => {console.log(error)});
 
 export function setStatusButton({ buttonElement, text, disabled }) {
     if(disabled) {
@@ -67,8 +77,7 @@ function handleProfileEditFormSubmit(evt) {
         .catch((error) => {console.log(error)})
         .finally(() => {
             setStatusButton({buttonElement: submitButtonProfile, text: 'Сохранить', disabled: false});
-        })
-    
+        });   
 }
 
 function handleAvatarEditFormSubmit(evt) {
@@ -82,26 +91,27 @@ function handleAvatarEditFormSubmit(evt) {
         .catch((error) => {console.log(error)})
         .finally(() => {
             setStatusButton({buttonElement: submitButtonAvatar, text: 'Сохранить', disabled: false});
-        })
+            newAvatarFormProfile.src = inputAvatarFormProfile.value;
+        });
 }
 
+// function setProfileInputValue() {
+//     getProfileInfo()
+//         .then((data) => {
+//             newNameFormProfile.textContent = data.name;
+//             newActivityFormProfile.textContent = data.about;
+//             newAvatarFormProfile.src = data.avatar;
+//             inputNameFormProfile.value = data.name;
+//             inputJobFormProfile.value = data.about;   
+//         })
+//         .catch((error) => {console.log(error)});
+// }
 
-function setProfileInputValue() {
-    getProfileInfo()
-        .then((data) => {
-            newNameFormProfile.textContent = data.name;
-            newActivityFormProfile.textContent = data.about;
-            newAvatarFormProfile.src = data.avatar;
-            inputNameFormProfile.value = data.name;
-            inputJobFormProfile.value = data.about;   
-        })
-}
-
-setProfileInputValue();
+// setProfileInputValue();
 
 function makeProfileEditForm() {
     openPopup(popupProfileEditForm);
-    setProfileInputValue();
+    //setProfileInputValue();
 }
 
 export const handleClickDelete = (cardData, cardElement) => {
@@ -109,12 +119,12 @@ export const handleClickDelete = (cardData, cardElement) => {
         .then(() => {
             cardElement.closest('.elements__item').remove();
         })
-        .catch((error) => {console.log(error)})
+        .catch((error) => {console.log(error)});
 }
 
 enableValidation(settings);
 
-renderCards();
+// renderCards();
 
 buttonOpenProfileEditForm.addEventListener('click',() => {
     makeProfileEditForm();

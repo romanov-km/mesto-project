@@ -1,20 +1,17 @@
 import {setImgValue, containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard, popupCardAddForm} from "./utils";
 import {openPopup, closePopup} from "./modal";
-import { addCard, getAllCards, getProfileInfo, likeCard, unlikeCard } from "./api";
-import { handleClickDelete } from "..";
-import { setStatusButton } from "..";
+import { addCard, likeCard, unlikeCard } from "./api";
+import { handleClickDelete, setStatusButton, userId } from "..";
 import { submitButtonCard } from "./utils";
 
-let userId = 0;
-
 // функция вставляет разметку карточек в DOM
-function renderCards() {
-    getAllCards()
-        .then(allCards => {
-            allCards.forEach((card) => {containerCards.append(createCard(card))})
-        })
-    
-}
+// function renderCards() {
+//     getAllCards()
+//         .then(allCards => {
+//             allCards.forEach((card) => {containerCards.append(createCard(card))})
+//         })
+//         .catch((error) => {console.log(error)});
+// }
 
 // urlInput.value, nameInput.value
 // функция добавления новой карточки
@@ -37,14 +34,8 @@ function addCardSubmit(evt) {
     
 }
 
-Promise.all([getProfileInfo()])
-    .then(([user]) => {
-    userId = user._id
-    })
-    .catch(err => console.log(err))
-
 // функция получает данные для создания карточки и возвращает готовую разметку
-function createCard(cardData) {
+export function createCard(cardData) {
     const nameCard = cardData.name;
     const urlCard = cardData.link;
     const cardTemplate = document.querySelector('#card').content;
@@ -79,14 +70,14 @@ function createCard(cardData) {
                     cardLike.textContent = dataLike.likes.length;
                     makeLikeInCard(cardButtonLike);
                 })
-                .catch((error => {console.log(error)}))
+                .catch((error => {console.log(error)}));
         } else {
                 likeCard(cardData._id)
-                .then((dataLike) => {
-                    cardLike.textContent = dataLike.likes.length;
-                    makeLikeInCard(cardButtonLike);
+                    .then((dataLike) => {
+                        cardLike.textContent = dataLike.likes.length;
+                        makeLikeInCard(cardButtonLike);
                 })
-                .catch((error) => {console.log(error)})
+                    .catch((error) => {console.log(error)});
         }
     });
     buttonOpenImg.addEventListener('click', openPopupImgFullSize);
@@ -94,12 +85,12 @@ function createCard(cardData) {
 }
 
 const openPopupImgFullSize = (evt) => {
-  setImgValue(evt);
-  openPopup(popupCardImgFullSize);
+    setImgValue(evt);
+    openPopup(popupCardImgFullSize);
 }
 
 const makeLikeInCard = (target) => {
     target.classList.toggle('elements__button-like_active');
 }
 
-export {renderCards, addCardSubmit};
+export {addCardSubmit};
