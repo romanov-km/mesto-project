@@ -95,23 +95,8 @@ function handleAvatarEditFormSubmit(evt) {
         });
 }
 
-// function setProfileInputValue() {
-//     getProfileInfo()
-//         .then((data) => {
-//             newNameFormProfile.textContent = data.name;
-//             newActivityFormProfile.textContent = data.about;
-//             newAvatarFormProfile.src = data.avatar;
-//             inputNameFormProfile.value = data.name;
-//             inputJobFormProfile.value = data.about;   
-//         })
-//         .catch((error) => {console.log(error)});
-// }
-
-// setProfileInputValue();
-
 function makeProfileEditForm() {
     openPopup(popupProfileEditForm);
-    //setProfileInputValue();
 }
 
 export const handleClickDelete = (cardData, cardElement) => {

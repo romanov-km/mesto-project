@@ -4,17 +4,6 @@ import { addCard, likeCard, unlikeCard } from "./api";
 import { handleClickDelete, setStatusButton, userId } from "..";
 import { submitButtonCard } from "./utils";
 
-// функция вставляет разметку карточек в DOM
-// function renderCards() {
-//     getAllCards()
-//         .then(allCards => {
-//             allCards.forEach((card) => {containerCards.append(createCard(card))})
-//         })
-//         .catch((error) => {console.log(error)});
-// }
-
-// urlInput.value, nameInput.value
-// функция добавления новой карточки
 function addCardSubmit(evt) {
     evt.preventDefault(); //отменяет стандартную отравку формы
     setStatusButton({buttonElement: submitButtonCard, text: 'Сохранение...', disabled: true});
@@ -80,7 +69,9 @@ export function createCard(cardData) {
                     .catch((error) => {console.log(error)});
         }
     });
+
     buttonOpenImg.addEventListener('click', openPopupImgFullSize);
+    
     return cardElement
 }
 
