@@ -1,4 +1,4 @@
-const config = {
+export const config = {
     baseUrl: 'https://nomoreparties.co/v1/plus-cohort-25',
     headers: {
         authorization: '35842094-b102-48a4-b183-719cf536cb76',
@@ -6,78 +6,92 @@ const config = {
     }
 }
 
-function onResponse(res)  {
-    return res.ok ? res.json() : res.json().then((data) => Promise.reject(data));
-}
+export class Api {
+    #onResponse(res)  {
+        return res.ok ? res.json() : res.json().then((data) => Promise.reject(data));
+    }
 
-export function getAllCards() {
-    return fetch(`${config.baseUrl}/cards`, {
-        method: 'GET',
-        headers: config.headers
-    })
-        .then(onResponse)
-}
+    constructor(config) {
+        this._baseUrl = config.baseUrl;
+        this._headers = config.headers;
+    }
+    
+    //
 
-export function getProfileInfo() {
-    return fetch(`${config.baseUrl}/users/me`, {
-        method: 'GET',
-        headers: config.headers
-    })
-        .then(onResponse)
-}
+    getAllCards() {
+        return fetch(`${this._baseUrl}/cards`, {
+            method: 'GET',
+            headers: this._headers
+        })
+            .then(this.#onResponse)
+    }
+    
+    //
+    getProfileInfo() {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'GET',
+            headers: this._headers
+        })
+            .then(this.#onResponse)
+    }
 
-export function addCard(body) {
-    return fetch(`${config.baseUrl}/cards`, {
-        'content-type': 'application/json',
-        method: 'POST',
-        headers: config.headers,
-        body: JSON.stringify(body)
-    })
-        .then(onResponse)
-}
+    //добавления карточки
+    addCard(body) {
+        return fetch(`${this._baseUrl}/cards`, {
+            'content-type': 'application/json',
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify(body)
+        })
+            .then(this.#onResponse)
+    }
 
-export function editProfile(body) {
-    return fetch(`${config.baseUrl}/users/me`, {
-        'content-type': 'application/json',
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify(body)
-    })
-        .then(onResponse)
-}
-
-export function editAvatar(body) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
-        'content-type': 'application/json',
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify(body)
-    })
-        .then(onResponse)
-}
-
-export function deleteCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/${cardId}`, {
-        method: 'DELETE',
-        headers: config.headers
-    })
-        .then(onResponse)
-}
-
-//  лайк
-export function likeCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-        method: 'PUT',
-        headers: config.headers
-    })
-        .then(onResponse)
-}
-
-// удаление лайка
-export function unlikeCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-        method: 'DELETE',
-        headers: config.headers
-    })
-    .then(onResponse)
+    //редактирование профиля
+    editProfile(body) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            'content-type': 'application/json',
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify(body)
+        })
+            .then(this.#onResponse)
+    }
+    
+    //редактирование аватара
+    editAvatar(body) {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            'content-type': 'application/json',
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify(body)
+        })
+            .then(this.#onResponse)
+    }
+    
+    //удаление карточки
+    deleteCard(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+            .then(this.#onResponse)
+    }
+    
+    //  лайк
+    likeCard(cardId) {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+            method: 'PUT',
+            headers: this._headers
+        })
+            .then(this.#onResponse)
+    }
+    
+    // удаление лайка
+    unlikeCard(cardId) {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+        .then(this.#onResponse)
+    }
 }

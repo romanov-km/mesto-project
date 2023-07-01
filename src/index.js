@@ -2,8 +2,11 @@ import './pages/index.css'; // добавьте импорт главного ф
 import { enableValidation, makeButtonDisabled, clearErrors } from './components/validate';
 import { addCardSubmit, createCard} from './components/cards';
 import {closePopup, openPopup} from './components/modal';
-import { editProfile, editAvatar, getProfileInfo, deleteCard, getAllCards } from './components/api';
 import { submitButtonCard, submitButtonProfile, submitButtonAvatar, popupCardAddForm, popupProfileEditForm, popupAvatarEditForm, containerCards} from './components/utils';
+import { config } from './components/api';
+import { Api } from './components/api';
+
+export const api = new Api(config);
 
 export let userId = 0;
 const settings = {
@@ -41,7 +44,7 @@ const newNameFormProfile = document.querySelector('.profile__name');
 const newActivityFormProfile = document.querySelector('.profile__activity');
 const newAvatarFormProfile = document.querySelector('.profile__avatar');
 
-Promise.all([getProfileInfo(), getAllCards()])
+Promise.all([api.getProfileInfo(), api.getAllCards()])
     .then(([user, cards]) => {
         userId = user._id
         newNameFormProfile.textContent = user.name;
@@ -68,7 +71,7 @@ function handleProfileEditFormSubmit(evt) {
     // Получите значение полей jobInput и nameInput из свойства value
     // Выберите элементы, куда должны быть вставлены значения полей
     // Вставьте новые значения с помощью textContent
-    editProfile({name: inputNameFormProfile.value, about:inputJobFormProfile.value})
+    api.editProfile({name: inputNameFormProfile.value, about:inputJobFormProfile.value})
         .then(updateProfile => {
             newNameFormProfile.textContent = updateProfile.name;
             newActivityFormProfile.textContent = updateProfile.about;
@@ -83,7 +86,7 @@ function handleProfileEditFormSubmit(evt) {
 function handleAvatarEditFormSubmit(evt) {
     evt.preventDefault();
     setStatusButton({buttonElement: submitButtonAvatar, text: 'Сохранение...', disabled: true});
-    editAvatar({avatar: inputAvatarFormProfile.value})
+    api.editAvatar({avatar: inputAvatarFormProfile.value})
         .then(updateAvatar => {
             inputAvatarFormProfile.textContent = updateAvatar.src;
             closePopup(popupAvatarEditForm);
@@ -100,7 +103,7 @@ function makeProfileEditForm() {
 }
 
 export const handleClickDelete = (cardData, cardElement) => {
-    deleteCard(cardData._id)
+    api.deleteCard(cardData._id)
         .then(() => {
             cardElement.closest('.elements__item').remove();
         })

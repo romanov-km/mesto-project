@@ -1,8 +1,8 @@
 import {setImgValue, containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard, popupCardAddForm} from "./utils";
 import {openPopup, closePopup} from "./modal";
-import { addCard, likeCard, unlikeCard } from "./api";
 import { handleClickDelete, setStatusButton, userId } from "..";
 import { submitButtonCard } from "./utils";
+import { api } from ".."; 
 
 function addCardSubmit(evt) {
     evt.preventDefault(); //отменяет стандартную отравку формы
@@ -11,7 +11,7 @@ function addCardSubmit(evt) {
         name: inputNameFormAddCard.value,
         link: inputUrlFormAddCard.value,
     }
-    addCard(newCardData)
+    api.addCard(newCardData)
         .then((dataCard) => {
             containerCards.prepend(createCard(dataCard));
             closePopup(popupCardAddForm);
@@ -54,14 +54,14 @@ export function createCard(cardData) {
     
     cardButtonLike.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('elements__button-like_active')) {
-            unlikeCard(cardData._id)
+            api.unlikeCard(cardData._id)
                 .then((dataLike) => {
                     cardLike.textContent = dataLike.likes.length;
                     makeLikeInCard(cardButtonLike);
                 })
                 .catch((error => {console.log(error)}));
         } else {
-                likeCard(cardData._id)
+                api.likeCard(cardData._id)
                     .then((dataLike) => {
                         cardLike.textContent = dataLike.likes.length;
                         makeLikeInCard(cardButtonLike);
