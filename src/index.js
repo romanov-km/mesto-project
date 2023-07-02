@@ -5,8 +5,7 @@ import {closePopup, openPopup} from './components/modal';
 import { submitButtonCard, submitButtonProfile, submitButtonAvatar, popupCardAddForm, popupProfileEditForm, popupAvatarEditForm, containerCards} from './components/utils';
 import { config } from './components/api';
 import { Api } from './components/api';
-
-export const api = new Api(config);
+import { Section } from './components/Section';
 
 export let userId = 0;
 const settings = {
@@ -44,15 +43,30 @@ const newNameFormProfile = document.querySelector('.profile__name');
 const newActivityFormProfile = document.querySelector('.profile__activity');
 const newAvatarFormProfile = document.querySelector('.profile__avatar');
 
+export const api = new Api(config);
+
+const section = new Section(
+    {
+        renderer: (item) => {
+            const card = createCard(item);
+            section.addItem(card);
+        }
+    },
+    '.elements__list'
+);
+
+
 Promise.all([api.getProfileInfo(), api.getAllCards()])
     .then(([user, cards]) => {
         userId = user._id
+        console.log(cards);
         newNameFormProfile.textContent = user.name;
         newActivityFormProfile.textContent = user.about;
         newAvatarFormProfile.src = user.avatar;
         inputNameFormProfile.value = user.name;
         inputJobFormProfile.value = user.about;
-        cards.forEach((card) => {containerCards.append(createCard(card))})
+        section.renderItems(cards);
+        //cards.forEach((card) => {containerCards.append(createCard(card))})
     })
     .catch((error) => {console.log(error)});
 
