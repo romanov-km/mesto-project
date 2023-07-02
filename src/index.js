@@ -6,6 +6,7 @@ import { submitButtonCard, submitButtonProfile, submitButtonAvatar, popupCardAdd
 import { config } from './components/api';
 import { Api } from './components/api';
 import { Section } from './components/Section';
+import { UserInfo } from './components/UserInfo';
 
 export let userId = 0;
 const settings = {
@@ -39,13 +40,13 @@ const inputNameFormProfile = document.querySelector('#form-edit-profile input[na
 const inputJobFormProfile = document.querySelector('#form-edit-profile input[name="activity"]');
 const inputAvatarFormProfile = document.querySelector('#form-avatar-edit input[name="url"]');
 
-const newNameFormProfile = document.querySelector('.profile__name'); 
-const newActivityFormProfile = document.querySelector('.profile__activity');
-const newAvatarFormProfile = document.querySelector('.profile__avatar');
+//const newNameFormProfile = document.querySelector('.profile__name'); 
+//const newActivityFormProfile = document.querySelector('.profile__activity');
+//const newAvatarFormProfile = document.querySelector('.profile__avatar');
 
 export const api = new Api(config);
 
-const section = new Section(
+export const section = new Section(
     {
         renderer: (item) => {
             const card = createCard(item);
@@ -55,16 +56,20 @@ const section = new Section(
     '.elements__list'
 );
 
+const userinfo = new UserInfo({nameSelector: '.profile__name', activitySelector: '.profile__activity'})
 
 Promise.all([api.getProfileInfo(), api.getAllCards()])
     .then(([user, cards]) => {
         userId = user._id
         console.log(cards);
-        newNameFormProfile.textContent = user.name;
-        newActivityFormProfile.textContent = user.about;
-        newAvatarFormProfile.src = user.avatar;
-        inputNameFormProfile.value = user.name;
-        inputJobFormProfile.value = user.about;
+        console.log(userId);
+        userinfo.setUserInfo({name: user.name , activity: user.about, userId: user._id});
+        userinfo.setUserAvatar({avatar: user.avatar});
+        //newNameFormProfile.textContent = user.name;
+        //newActivityFormProfile.textContent = user.about;
+        //newAvatarFormProfile.src = user.avatar;
+        //inputNameFormProfile.value = user.name;
+        //inputJobFormProfile.value = user.about;
         section.renderItems(cards);
         //cards.forEach((card) => {containerCards.append(createCard(card))})
     })
@@ -85,10 +90,12 @@ function handleProfileEditFormSubmit(evt) {
     // Получите значение полей jobInput и nameInput из свойства value
     // Выберите элементы, куда должны быть вставлены значения полей
     // Вставьте новые значения с помощью textContent
-    api.editProfile({name: inputNameFormProfile.value, about:inputJobFormProfile.value})
+    api.editProfile({name: inputNameFormProfile.value, about: inputJobFormProfile.value})
         .then(updateProfile => {
-            newNameFormProfile.textContent = updateProfile.name;
-            newActivityFormProfile.textContent = updateProfile.about;
+            console.log(userinfo);
+            userinfo.setUserInfo({ name: updateProfile.name, activity: updateProfile.about});
+            //newNameFormProfile.textContent = updateProfile.name;
+            //newActivityFormProfile.textContent = updateProfile.about;
             closePopup(popupProfileEditForm);
         })
         .catch((error) => {console.log(error)})
@@ -102,13 +109,14 @@ function handleAvatarEditFormSubmit(evt) {
     setStatusButton({buttonElement: submitButtonAvatar, text: 'Сохранение...', disabled: true});
     api.editAvatar({avatar: inputAvatarFormProfile.value})
         .then(updateAvatar => {
-            inputAvatarFormProfile.textContent = updateAvatar.src;
+            userinfo.setUserAvatar(updateAvatar);
+            //inputAvatarFormProfile.textContent = updateAvatar.src;
             closePopup(popupAvatarEditForm);
         })
         .catch((error) => {console.log(error)})
         .finally(() => {
             setStatusButton({buttonElement: submitButtonAvatar, text: 'Сохранить', disabled: false});
-            newAvatarFormProfile.src = inputAvatarFormProfile.value;
+            //newAvatarFormProfile.src = inputAvatarFormProfile.value;
         });
 }
 
@@ -125,8 +133,6 @@ export const handleClickDelete = (cardData, cardElement) => {
 }
 
 enableValidation(settings);
-
-// renderCards();
 
 buttonOpenProfileEditForm.addEventListener('click',() => {
     makeProfileEditForm();

@@ -2,7 +2,7 @@ import {setImgValue, containerCards, popupCardImgFullSize, inputNameFormAddCard,
 import {openPopup, closePopup} from "./modal";
 import { handleClickDelete, setStatusButton, userId } from "..";
 import { submitButtonCard } from "./utils";
-import { api } from ".."; 
+import { api, section } from ".."; 
 
 function addCardSubmit(evt) {
     evt.preventDefault(); //отменяет стандартную отравку формы
@@ -13,6 +13,8 @@ function addCardSubmit(evt) {
     }
     api.addCard(newCardData)
         .then((dataCard) => {
+            //section.addItem(dataCard);
+            
             containerCards.prepend(createCard(dataCard));
             closePopup(popupCardAddForm);
         })
