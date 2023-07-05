@@ -25,4 +25,6 @@ function setImgValue(evt) {
     textValueImg.textContent = evt.target.alt;
 }
 
+
 export {setImgValue, containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard};
+
