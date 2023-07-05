@@ -31,19 +31,26 @@ export class Card {
         return cardElement;
     }
     checkLikes() {
+
         return this._likes.some(like => {
-          return like._id === this._userId;
+            return like._id === this._userId;
         });
       }
       
       likesNumber() {
         this._cardLikeNumber.textContent = this._likes.length;
+       
     }
     
       toggleLikeBtn() {
         this._cardLikeButton.classList.toggle("elements__button-like_active");
     }
-  
+    _cardTrash(){
+        if (this._ownerId !== this._userId){
+            this._cardDeleteButton.remove();
+        }
+    }
+
       deleteCard() {
         this._card.remove();
       }
@@ -62,10 +69,9 @@ export class Card {
         this._card.setAttribute('cardData-id', `${this.id}`);
         this._setEventListeners();
         this.likesNumber();
-
-       
-        if (this._ownerId._id !== this._userId) this._cardDeleteButton.remove();
-        return this._card;
+        this._cardTrash()
+         if (this.checkLikes()) this.toggleLikeBtn();
+         return this._card;
 
     }
 
