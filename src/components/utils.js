@@ -8,8 +8,7 @@ const inputNameFormAddCard = document.querySelector('#form-add-card input[name="
 
 
 
-const urlValueImg =  document.querySelector('.img-popup__image');
-const textValueImg = document.querySelector('.img-popup__title');
+
 
 export const popupProfileEditForm = document.querySelector('.profile-popup');
 export const popupCardAddForm = document.querySelector('.add-popup');

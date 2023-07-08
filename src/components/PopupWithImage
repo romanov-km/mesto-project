@@ -1,0 +1,17 @@
+import { Popup } from './Popup';
+
+export class PopupWithImage extends Popup {
+    constructor(selector, image, title) {
+        super(selector);
+        this._image = document.querySelector(image);
+        this._title = document.querySelector(title);
+    }
+
+    openPopup(name, link) {
+        super.openPopup();
+  
+        this._image.src = link;
+        this._image.alt = name;
+        this._title.textContent = name;
+    }
+}

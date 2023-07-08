@@ -1,10 +1,6 @@
 import { setImgValue, containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard, popupCardAddForm } from "./utils";
-import { openPopup, closePopup } from "./modal";
-import { handleClickDelete, setStatusButton, userId } from "..";
-import { submitButtonCard } from "./utils";
 import { api, section } from "..";
 
-/*,,*/
 export class Card {
     constructor(cardData, selector, userId, handleLikeCard,handleDeleteCard, handleClickCard) {
         this._selector = selector;

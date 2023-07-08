@@ -8,6 +8,8 @@ import { Api } from './components/api';
 import { Section } from './components/Section';
 import { UserInfo } from './components/UserInfo';
 import { Card } from './components/cards';
+import { Popup } from './components/Popup';
+import { PopupWithImage } from './components/PopupWithImage';
 
 const selector = '.element-template';
 console.log(selector);
@@ -64,16 +66,19 @@ export const section = new Section(
 const userinfo = new UserInfo({ nameSelector: '.profile__name', activitySelector: '.profile__activity' })
 
 const createCard = (cardData) => {
-    const card = new Card(cardData, selector, userId._id, handleLikeCard).createCard();
+    const card = new Card(cardData, selector, userId._id, handleLikeCard, handleClickCard).createCard();
     return card;
 }
 
+const imagePopup = new PopupWithImage('img-popup');
+console.log(imagePopup);
+//imagePopup.setEventListeners();
 function handleLikeCard(card) {
     if (!card.checkLikes()) {
         api.likeCard(card._cardId)
             .then(data => {
                 card.likes = data.likes;
-                card.toggleLikeBtn();
+                card.toggleLikeButton();
                 card.likesNumber();
             })
             .catch(err => console.log(err))
@@ -81,13 +86,20 @@ function handleLikeCard(card) {
         api.unlikeCard(card._cardId)
             .then(data => {
                 card.likes = data.likes;
-                card.toggleLikeBtn();
+                card.toggleLikeButton();
                 card.likesNumber();
             })
             .catch(err => console.log(err))
     }
 };
+//удалить перед отправкой
+const popupImageSize = new Popup('.img-popup', '.img-popup__image','.img-popup__title');
+popupImageSize.setEventListeners();
 
+function handleClickCard(name, link){
+    console.log(name);
+    popupImageSize.openPopup(name, link);
+}
 Promise.all([api.getProfileInfo(), api.getAllCards()])
     .then(([user, cards]) => {
         userId = user._id
@@ -149,7 +161,7 @@ function handleAvatarEditFormSubmit(evt) {
 }
 
 function makeProfileEditForm() {
-    openPopup(popupProfileEditForm);
+    popupImageSize.openPopup(popupProfileEditForm);
 }
 
 export const handleClickDelete = (cardData, cardElement) => {
@@ -172,32 +184,32 @@ buttonCloseProfileEditForm.addEventListener('click', () => {
 });
 
 buttonOpenCardAddForm.addEventListener('click', () => {
-    openPopup(popupCardAddForm);
+    popupImageSize.openPopup(popupCardAddForm);
     formCardAdd.reset();
     makeButtonDisabled(submitButtonCard, settings);
     clearErrors(formCardAdd, settings);
 });
 
 buttonCloseCardAddForm.addEventListener('click', () => {
-    closePopup(popupCardAddForm);
+    popupImageSize.closePopup(popupCardAddForm);
 });
 
 buttonOpenAvatarForm.addEventListener('click', () => {
-    openPopup(popupAvatarEditForm);
+    popupImageSize.openPopup(popupAvatarEditForm);
     formAvatarEdit.reset();
     makeButtonDisabled(submitButtonAvatar, settings);
     clearErrors(formAvatarEdit, settings);
 })
 
 buttonCloseAvatarEditForm.addEventListener('click', () => {
-    closePopup(popupAvatarEditForm);
+    popupImageSize.closePopup(popupAvatarEditForm);
 })
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 formProfileEdit.addEventListener('submit', handleProfileEditFormSubmit);
 
-buttonCloseImgPopup.addEventListener('click', () => { closePopup(popupCardImgFullSize) });
+//buttonCloseImgPopup.addEventListener('click', () => { popup.closePopup(popupCardImgFullSize) });
 
 //formCardAdd.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
 
