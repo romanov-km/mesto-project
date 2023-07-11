@@ -60,7 +60,7 @@ const enableValidation = (settings) => {
     formList.forEach((formElement) => {
         formElement.addEventListener('submit', function(evt) {
         evt.preventDefault();
-    })  
+    })
       // Для каждой формы вызовем функцию setEventListeners,
       // передав ей элемент формы
     setEventListeners(formElement, settings);
@@ -97,4 +97,4 @@ export const clearErrors = (formElement, settings) => {
     });
 }
 
-export {enableValidation}; 
+//export {enableValidation};
