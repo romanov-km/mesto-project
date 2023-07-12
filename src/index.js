@@ -8,7 +8,7 @@ import { Api } from './components/api';
 import { Section } from './components/Section';
 import { UserInfo } from './components/UserInfo';
 import { Card } from './components/Card';
-import { Popup } from './components/Popup';
+
 import { PopupWithForm } from './components/PopupWithForm';
 import { PopupWithImage } from './components/PopupWithImage.js';
 import { FormValidator } from './components/FormValidator';
@@ -78,35 +78,29 @@ const createCard = (cardData) => {
     return card;
 }
 
-
 const popupCardImgFullSize = new PopupWithImage('.img-popup');
 //console.log(popupCardImgFullSize);
 popupCardImgFullSize.setEventListeners();
-
-
 
 function handleLikeCard(card) {
     if (!card.checkLikes()) {
         api.likeCard(card._cardId)
             .then(data => {
-                card.likes = data.likes;
-                card.likesNumber();
+                card.likesNumber(data.likes);
                 card.toggleLikeBtn();
-                
+
             })
             .catch(err => console.log(err))
     } else {
         api.unlikeCard(card._cardId)
             .then(data => {
-                card.likes = data.likes;
-                card.likesNumber();
+                card.likesNumber(data.likes);
                 card.toggleLikeBtn();
-            
+
             })
             .catch(err => console.log(err))
     }
 };
-
 
 function handleClickCard(name, link){
     //console.log(name);
@@ -198,10 +192,9 @@ const popupCardAddForm = new PopupWithForm('.add-popup', (data) => {
   }
   api.addCard(newCardData)
       .then((dataCard) => {
-          const card = createCard(dataCard);
           section.addItem(card);
           containerCards.prepend(createCard(dataCard));
-          popupCardAddForm.closePopup();
+          popupCardAddForm.close();
       })
       .catch((err) => { console.log(err) })
       .finally(() => {

@@ -17,7 +17,7 @@ export class PopupWithForm extends Popup {
     return inputsValue;
   }
 
-  closePopup() {
+  close() {
     super.close();
     this._popupForm.reset();
   }

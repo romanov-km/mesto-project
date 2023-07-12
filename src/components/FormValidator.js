@@ -6,7 +6,6 @@ export class FormValidator {
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
     this._inputElements = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    console.log(this._inputElements, 123123123);
     this._buttonElement = this._formElement.querySelector(settings.submitButtonSelector);
     //console.log(this._buttonElement);
     //console.log(this._formElement);
@@ -30,14 +29,12 @@ export class FormValidator {
 
   _hideInputError = (inputElement) => {
     const errorElement = this._getError(inputElement);
-    console.log(errorElement);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
   }
 
   _isValid = (inputElement) => {
-    //const errorElement = this._getError(inputElement);
     if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
     } else {

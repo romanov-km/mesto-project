@@ -4,6 +4,7 @@ export class Card {
       this._name = cardData.name;
       this._image = cardData.image;
       this._likes = cardData.likes;
+      this._likesNumber = cardData.likes.length;
       this._link = cardData.link;
       this._cardId = cardData._id;
       this._userId = userId;
@@ -12,7 +13,7 @@ export class Card {
       this._handleClickCard = handleClickCard;
       this._handleLikeCard = handleLikeCard;
   }
-
+  _
   //копируем шаблон
   _getTemplate() {
     const cardElement = document.querySelector(this._selector)
@@ -28,14 +29,15 @@ export class Card {
     });
   }
 
-  likesNumber() {
-      this._cardLikeNumber.textContent = this._likes.length;
+  likesNumber(likes) {
+      this._likes = likes;
+      this._cardLikeNumber.textContent = likes.length;
 
   }
 
   toggleLikeBtn() {
       this._cardLikeButton.classList.toggle("elements__button-like_active");
-      this.likesNumber();
+      //this.likesNumber(likes);
   }
 
   _cardTrash() {
@@ -47,8 +49,8 @@ export class Card {
   }
 
   deleteCard() {
-    this._card.remove();
-    //this._card.closest('.elements__item').remove();
+    //this._card.remove();
+    this._card.closest('.elements__item').remove();
   }
   //создание карточки
 
@@ -60,28 +62,22 @@ export class Card {
       this._cardLikeButton = this._card.querySelector('.elements__button-like');
       this._cardDeleteButton = this._card.querySelector('.elements__button-delete');
       this._cardLikeNumber = this._card.querySelector('.elements__number-like');
-      this._cardLikeNumber.textContent = this._likes.length;
+      this._cardLikeNumber.textContent = this._likesNumber;
       this._cardImage.alt = this._name;
       this._cardImage.src = this._link;
       //this._card.setAttribute('carddata-id', `${this.id}`);
-      this.likesNumber();
+      //this.likesNumber();
       this._setEventListeners();
-      
       this._cardTrash()
-     // if (this.checkLikes()) this.toggleLikeBtn();
-
+      if (this.checkLikes()) this.toggleLikeBtn();
       return this._card;
   }
 
-
   _setEventListeners() {
       this._cardDeleteButton.addEventListener('click', () => this._handleDeleteCard(this));
-      
       this._cardLikeButton.addEventListener('click', () => this._handleLikeCard(this));
       this._cardImage.addEventListener('click', () => this._handleClickCard(this._name, this._link));
   }
-
-
   //новая карточка
 
 }
