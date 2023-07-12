@@ -23,7 +23,7 @@ export class Card {
     return cardElement;
   }
   checkLikes() {
-    return this._likes.some(like => {
+    return this._likes.find(like => {
         return like._id === this._userId;
     });
   }
@@ -35,6 +35,7 @@ export class Card {
 
   toggleLikeBtn() {
       this._cardLikeButton.classList.toggle("elements__button-like_active");
+      this.likesNumber();
   }
 
   _cardTrash() {
@@ -59,29 +60,24 @@ export class Card {
       this._cardLikeButton = this._card.querySelector('.elements__button-like');
       this._cardDeleteButton = this._card.querySelector('.elements__button-delete');
       this._cardLikeNumber = this._card.querySelector('.elements__number-like');
+      this._cardLikeNumber.textContent = this._likes.length;
       this._cardImage.alt = this._name;
       this._cardImage.src = this._link;
-
       //this._card.setAttribute('carddata-id', `${this.id}`);
-      this._setEventListeners();
       this.likesNumber();
+      this._setEventListeners();
+      
       this._cardTrash()
-      if (this.checkLikes()) this.toggleLikeBtn();
+     // if (this.checkLikes()) this.toggleLikeBtn();
 
       return this._card;
   }
 
 
   _setEventListeners() {
-      this._cardDeleteButton.addEventListener('click', () => this._handleDeleteCard());
-      //console.log(this._card);
-      this._cardLikeButton.addEventListener('click', () => {
-        if(this.checkLikes) {
-          this._toggleLikeBtn();
-        } else {
-
-        }
-      });
+      this._cardDeleteButton.addEventListener('click', () => this._handleDeleteCard(this));
+      
+      this._cardLikeButton.addEventListener('click', () => this._handleLikeCard(this));
       this._cardImage.addEventListener('click', () => this._handleClickCard(this._name, this._link));
   }
 

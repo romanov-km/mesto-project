@@ -90,16 +90,18 @@ function handleLikeCard(card) {
         api.likeCard(card._cardId)
             .then(data => {
                 card.likes = data.likes;
-                card.toggleLikeButton();
                 card.likesNumber();
+                card.toggleLikeBtn();
+                
             })
             .catch(err => console.log(err))
     } else {
         api.unlikeCard(card._cardId)
             .then(data => {
                 card.likes = data.likes;
-                card.toggleLikeButton();
                 card.likesNumber();
+                card.toggleLikeBtn();
+            
             })
             .catch(err => console.log(err))
     }
@@ -110,7 +112,13 @@ function handleClickCard(name, link){
     //console.log(name);
     popupCardImgFullSize.openPopup(name, link);
 }
-
+const handleClickDelete = (card) => {
+    api.deleteCard(card._cardId)
+        .then(() => {
+            card.deleteCard();
+        })
+        .catch((error) => { console.log(error) });
+}
 
 Promise.all([api.getProfileInfo(), api.getAllCards()])
     .then(([user, cards]) => {
@@ -177,14 +185,6 @@ function makeProfileEditForm() {
   const userData = userinfo.getUserInfo();
   inputNameFormProfile.value = userData.name;
   inputJobFormProfile.value = userData.activity;
-}
-
-const handleClickDelete = (cardData, cardElement) => {
-    api.deleteCard(cardData._id)
-        .then(() => {
-            cardElement.closest('.elements__item').remove();
-        })
-        .catch((error) => { console.log(error) });
 }
 
 //enableValidation(settings);
