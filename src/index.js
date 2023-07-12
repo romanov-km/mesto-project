@@ -1,5 +1,5 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей
-import { enableValidation, makeButtonDisabled, clearErrors } from './components/validate';
+//import { enableValidation, makeButtonDisabled, clearErrors } from './components/validate';
 //import { addCardSubmit} from './components/cards';
 //import { closePopup, openPopup } from './components/modal';
 import { submitButtonCard, submitButtonProfile, submitButtonAvatar, containerCards} from './components/utils';
@@ -255,46 +255,51 @@ const validatepopupCardAddForm = new FormValidator(settings, formCardAdd);
 
 validatepopupCardAddForm.enableValidation();
 
+const validatePopupAvatarEditForm = new FormValidator(settings, formAvatarEdit);
+
+validatePopupAvatarEditForm.enableValidation();
+
 
 //listeners
 buttonOpenProfileEditForm.addEventListener('click', () => {
+    validatePopupProfileEditForm.makeButtonDisabled();
     makeProfileEditForm();
-    //clearErrors(formProfileEdit);
 });
 
 buttonCloseProfileEditForm.addEventListener('click', () => {
     popupProfileEditForm.close();
+    validatePopupProfileEditForm.clearErrors();
 });
 
 buttonOpenCardAddForm.addEventListener('click', () => {
+  validatepopupCardAddForm.makeButtonDisabled();
   popupCardAddForm.open();
-
-  //formCardAdd.reset();
-  //makeButtonDisabled(submitButtonCard, settings);
-  //clearErrors(formCardAdd, settings);
+  formCardAdd.reset();
 });
 
 buttonCloseCardAddForm.addEventListener('click', () => {
     popupCardAddForm.close();
+    validatepopupCardAddForm.clearErrors();
 });
 
 buttonOpenAvatarForm.addEventListener('click', () => {
+    validatePopupAvatarEditForm.makeButtonDisabled();
     popupAvatarEditForm.open();
-    //formAvatarEdit.reset();
-    //makeButtonDisabled(submitButtonAvatar, settings);
-    //clearErrors(formAvatarEdit, settings);
+    formAvatarEdit.reset();
 })
 
 buttonCloseAvatarEditForm.addEventListener('click', () => {
   popupAvatarEditForm.close();
+  validatePopupAvatarEditForm.clearErrors();
 })
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 
-//formProfileEdit.addEventListener('submit', handleProfileEditFormSubmit);
 
 buttonCloseImgPopup.addEventListener('click', () => { popupCardImgFullSize.close() });
+
+//formProfileEdit.addEventListener('submit', handleProfileEditFormSubmit);
 
 //formCardAdd.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
 

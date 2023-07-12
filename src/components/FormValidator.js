@@ -3,11 +3,13 @@ export class FormValidator {
     this._formElement = formElement;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
-    this.__inputSelector = settings.inputSelector;
-    this.__submitButtonSelector = settings.submitButtonSelector;
+    this._inputSelector = settings.inputSelector;
+    this._submitButtonSelector = settings.submitButtonSelector;
     this._inputElements = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    //console.log(this._inputElements, 123123123);
-    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+    console.log(this._inputElements, 123123123);
+    this._buttonElement = this._formElement.querySelector(settings.submitButtonSelector);
+    //console.log(this._buttonElement);
+    //console.log(this._formElement);
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._formSelector = settings.formSelector;
     //console.log(this._formSelector, 123);
@@ -15,21 +17,27 @@ export class FormValidator {
     //console.log(this._formList, 123);
   }
 
+  _getError(inputElement) {
+    return this._formElement.querySelector(`.${inputElement.id}-error`);
+  }
+
   _showInputError(inputElement, errorMessage) {
-    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    const errorElement = this._getError(inputElement);
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
   }
 
   _hideInputError = (inputElement) => {
-    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    const errorElement = this._getError(inputElement);
+    console.log(errorElement);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
   }
 
   _isValid = (inputElement) => {
+    //const errorElement = this._getError(inputElement);
     if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
     } else {
