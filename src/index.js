@@ -2,7 +2,7 @@ import './pages/index.css'; // добавьте импорт главного ф
 //import { enableValidation, makeButtonDisabled, clearErrors } from './components/validate';
 //import { addCardSubmit} from './components/cards';
 //import { closePopup, openPopup } from './components/modal';
-import { submitButtonCard, submitButtonProfile, submitButtonAvatar, containerCards} from './components/utils';
+import { submitButtonCard, submitButtonProfile, submitButtonAvatar, containerCards, settings} from './components/utils';
 import { config } from './components/api';
 import { Api } from './components/api';
 import { Section } from './components/Section';
@@ -20,14 +20,6 @@ const selector = '.element-template';
 
 export let userId = 0;
 
-const settings = {
-    formSelector: '.add-popup__form',
-    inputSelector: '.add-popup__text-input',
-    submitButtonSelector: '.add-popup__submit',
-    inactiveButtonClass: 'add-popup__submit_inactive',
-    inputErrorClass: 'add-popup__text-input_type_error',
-    errorClass: 'add-popup__input-error_active'
-};
 
 const buttonOpenProfileEditForm = document.querySelector('.profile__edit-button');
 const buttonCloseProfileEditForm = document.querySelector('.popup__closed-button');
@@ -137,42 +129,6 @@ export function setStatusButton({ buttonElement, text, disabled }) {
     }
     buttonElement.textContent = text;
 }
-
-// function handleProfileEditFormSubmit(evt) {
-//     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-//     setStatusButton({ buttonElement: submitButtonProfile, text: 'Сохранение...', disabled: true });
-//     // Получите значение полей jobInput и nameInput из свойства value
-//     // Выберите элементы, куда должны быть вставлены значения полей
-//     // Вставьте новые значения с помощью textContent
-//     api.editProfile({ name: inputNameFormProfile.value, about: inputJobFormProfile.value })
-//         .then(updateProfile => {
-//             console.log(userinfo);
-//             userinfo.setUserInfo({ name: updateProfile.name, activity: updateProfile.about });
-//             //newNameFormProfile.textContent = updateProfile.name;
-//             //newActivityFormProfile.textContent = updateProfile.about;
-//             closePopup(popupProfileEditForm);
-//         })
-//         .catch((error) => { console.log(error) })
-//         .finally(() => {
-//             setStatusButton({ buttonElement: submitButtonProfile, text: 'Сохранить', disabled: false });
-//         });
-// }
-
-// function handleAvatarEditFormSubmit(evt) {
-//     evt.preventDefault();
-//     setStatusButton({ buttonElement: submitButtonAvatar, text: 'Сохранение...', disabled: true });
-//     api.editAvatar({ avatar: inputAvatarFormProfile.value })
-//         .then(updateAvatar => {
-//             userinfo.setUserAvatar(updateAvatar);
-//             //inputAvatarFormProfile.textContent = updateAvatar.src;
-//             closePopup(popupAvatarEditForm);
-//         })
-//         .catch((error) => { console.log(error) })
-//         .finally(() => {
-//             setStatusButton({ buttonElement: submitButtonAvatar, text: 'Сохранить', disabled: false });
-//             //newAvatarFormProfile.src = inputAvatarFormProfile.value;
-//         });
-// }
 
 function makeProfileEditForm() {
   popupProfileEditForm.open();
@@ -292,10 +248,3 @@ buttonCloseAvatarEditForm.addEventListener('click', () => {
 
 buttonCloseImgPopup.addEventListener('click', () => { popupCardImgFullSize.close() });
 
-//formProfileEdit.addEventListener('submit', handleProfileEditFormSubmit);
-
-//formCardAdd.addEventListener('submit', addCardSubmit); //обработчик сабмита добавления карточки
-
-//formAvatarEdit.addEventListener('submit', handleAvatarEditFormSubmit);
-
-//export default enableValidation;

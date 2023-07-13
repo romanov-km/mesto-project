@@ -6,6 +6,14 @@ const popupCardImgFullSize = document.querySelector('.img-popup');
 const inputUrlFormAddCard  = document.querySelector('#form-add-card input[name="url"]');
 const inputNameFormAddCard = document.querySelector('#form-add-card input[name="name"]');
 
+export const settings = {
+    formSelector: '.add-popup__form',
+    inputSelector: '.add-popup__text-input',
+    submitButtonSelector: '.add-popup__submit',
+    inactiveButtonClass: 'add-popup__submit_inactive',
+    inputErrorClass: 'add-popup__text-input_type_error',
+    errorClass: 'add-popup__input-error_active'
+};
 
 
 
@@ -18,12 +26,6 @@ export const submitButtonCard = popupCardAddForm.querySelector('.add-popup__subm
 export const submitButtonProfile = popupProfileEditForm.querySelector('.add-popup__submit');
 export const submitButtonAvatar = popupAvatarEditForm.querySelector('.add-popup__submit');
 
-function setImgValue(evt) {
-    urlValueImg.src = evt.target.src;
-    urlValueImg.alt = evt.target.alt;
-    textValueImg.textContent = evt.target.alt;
-}
 
-
-export {setImgValue, containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard};
+export {containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard};
 

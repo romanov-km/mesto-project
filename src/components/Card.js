@@ -78,6 +78,4 @@ export class Card {
       this._cardLikeButton.addEventListener('click', () => this._handleLikeCard(this));
       this._cardImage.addEventListener('click', () => this._handleClickCard(this._name, this._link));
   }
-  //новая карточка
-
 }
