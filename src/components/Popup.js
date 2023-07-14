@@ -1,6 +1,7 @@
 export class Popup {
     constructor(selector) {
         this._popup = document.querySelector(selector);
+        this._closeButton = this._popup.querySelector('.closed-button');
         this._closePopupByEsc = this._closePopupByEsc.bind(this);
     }
     open() {
@@ -18,8 +19,11 @@ export class Popup {
         }
     }
     setEventListeners() {
+        this._closeButton.addEventListener('click', ()=>{
+          this.close();
+        });
         this._popup.addEventListener('click', (evt) => {
-            if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__closed-button')) {  //Добавить проверку на все кнопки закрытия
+            if (evt.target.classList.contains('popup_opened')) { 
                 this.close();
             }
         });

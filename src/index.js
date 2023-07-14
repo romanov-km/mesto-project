@@ -208,34 +208,34 @@ buttonOpenProfileEditForm.addEventListener('click', () => {
     validatePopupProfileEditForm.makeButtonDisabled();
     makeProfileEditForm();
 });
-
+/*
 buttonCloseProfileEditForm.addEventListener('click', () => {
     popupProfileEditForm.close();
     validatePopupProfileEditForm.clearErrors();
 });
-
+*/
 buttonOpenCardAddForm.addEventListener('click', () => {
   validatepopupCardAddForm.makeButtonDisabled();
   popupCardAddForm.open();
   formCardAdd.reset();
 });
-
+/*
 buttonCloseCardAddForm.addEventListener('click', () => {
     popupCardAddForm.close();
     validatepopupCardAddForm.clearErrors();
 });
-
+*/
 buttonOpenAvatarForm.addEventListener('click', () => {
     validatePopupAvatarEditForm.makeButtonDisabled();
     popupAvatarEditForm.open();
     formAvatarEdit.reset();
 })
-
+/*
 buttonCloseAvatarEditForm.addEventListener('click', () => {
   popupAvatarEditForm.close();
   validatePopupAvatarEditForm.clearErrors();
 })
-
+*/
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 
