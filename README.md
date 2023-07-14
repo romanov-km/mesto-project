@@ -25,4 +25,7 @@
 
 HTML CSS JavaScript Figma Grid-Layout Flexbox, методы и приемы статической и адаптивной верстки
 Установка и настройка Babel, PostCSS, Webpack, npm
-Fetch, API
+Fetch, API, ООП
+**Совместная работа** 
+Кирилл workrkm@yandex.ru 
+Мария MariamDeeva@yandex.ru [Ссылка на git](https://github.com/MariaDeeva/mesto-project)

@@ -1,19 +1,19 @@
 const path = require('path'); // подключаем утилиту path к конфигу вебпак(превращает относительный путь в абсолютный)
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //подключили плагин для работы вебпака с html
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // подключили плагин для очистки папки dist после сборки проекта
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
-    entry: { main: './src/index.js' },
-    // указали первое место точку входа объект entry, куда заглянет webpack, — файл index.js в папке src    
+    entry: { main: './src/pages/index.js' },
+    // указали первое место точку входа объект entry, куда заглянет webpack, — файл index.js в папке src
     output: {
         path: path.resolve(__dirname, 'dist'), // вызов метода path.resolve. Ему переданы два аргумента: ссылка на текущую папку __dirname и относительный путь к точке выхода.
         filename: 'main.js',
         publicPath: ''
     },
     devtool: 'eval-source-map',
-    // указали (точку выхода) в какой файл будет собираться весь js и дали ему имя 
+    // указали (точку выхода) в какой файл будет собираться весь js и дали ему имя
     mode: 'development', // добавили режим разработчика
     devServer: {
         static: path.resolve(__dirname, './dist'), // путь, куда "смотрит" режим разработчика
@@ -63,4 +63,4 @@ module.exports = {
       ]
 }
 
-// module.exports — это синтаксис экспорта в Node.js 
+// module.exports — это синтаксис экспорта в Node.js
