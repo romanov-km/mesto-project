@@ -84,11 +84,6 @@ export class FormValidator {
   }
 
   enableValidation = () => {
-    this._formList.forEach((formElement) => {
-        formElement.addEventListener('submit', function(evt) {
-          evt.preventDefault();
-        })
-      this._setEventListeners();
-    });
-  };
+  this._setEventListeners();
+}
 }

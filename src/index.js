@@ -2,8 +2,8 @@ import './pages/index.css'; // добавьте импорт главного ф
 //import { enableValidation, makeButtonDisabled, clearErrors } from './components/validate';
 //import { addCardSubmit} from './components/cards';
 //import { closePopup, openPopup } from './components/modal';
-import { submitButtonCard, submitButtonProfile, submitButtonAvatar, containerCards, settings} from './components/utils';
-import { config } from './components/api';
+import { submitButtonCard, submitButtonProfile, submitButtonAvatar, containerCards, settings, setStatusButton} from './utils/utils';
+import { config } from './utils/utils';
 import { Api } from './components/api';
 import { Section } from './components/Section';
 import { UserInfo } from './components/UserInfo';
@@ -75,8 +75,9 @@ const popupCardImgFullSize = new PopupWithImage('.img-popup');
 popupCardImgFullSize.setEventListeners();
 
 function handleLikeCard(card) {
+    console.log(card);
     if (!card.checkLikes()) {
-        api.likeCard(card._cardId)
+        api.likeCard(card.cardId)
             .then(data => {
                 card.likesNumber(data.likes);
                 card.toggleLikeBtn();
@@ -84,7 +85,7 @@ function handleLikeCard(card) {
             })
             .catch(err => console.log(err))
     } else {
-        api.unlikeCard(card._cardId)
+        api.unlikeCard(card.cardId)
             .then(data => {
                 card.likesNumber(data.likes);
                 card.toggleLikeBtn();
@@ -99,7 +100,7 @@ function handleClickCard(name, link){
     popupCardImgFullSize.openPopup(name, link);
 }
 const handleClickDelete = (card) => {
-    api.deleteCard(card._cardId)
+    api.deleteCard(card.cardId)
         .then(() => {
             card.deleteCard();
         })
@@ -121,14 +122,7 @@ Promise.all([api.getProfileInfo(), api.getAllCards()])
     })
     .catch((error) => { console.log(error) });
 
-export function setStatusButton({ buttonElement, text, disabled }) {
-    if (disabled) {
-        buttonElement.disabled = 'disabled';
-    } else {
-        buttonElement.disabled = false;
-    }
-    buttonElement.textContent = text;
-}
+
 
 function makeProfileEditForm() {
   popupProfileEditForm.open();

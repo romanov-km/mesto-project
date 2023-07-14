@@ -14,8 +14,21 @@ export const settings = {
     inputErrorClass: 'add-popup__text-input_type_error',
     errorClass: 'add-popup__input-error_active'
 };
-
-
+export const config = {
+    baseUrl: 'https://nomoreparties.co/v1/plus-cohort-25',
+    headers: {
+        authorization: '35842094-b102-48a4-b183-719cf536cb76',
+        "Content-Type": 'application/json'
+    }
+}
+export function setStatusButton({ buttonElement, text, disabled }) {
+    if (disabled) {
+        buttonElement.disabled = 'disabled';
+    } else {
+        buttonElement.disabled = false;
+    }
+    buttonElement.textContent = text;
+}
 
 
 export const popupProfileEditForm = document.querySelector('.profile-popup');

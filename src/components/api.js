@@ -1,10 +1,4 @@
-export const config = {
-    baseUrl: 'https://nomoreparties.co/v1/plus-cohort-25',
-    headers: {
-        authorization: '35842094-b102-48a4-b183-719cf536cb76',
-        "Content-Type": 'application/json'
-    }
-}
+import { config } from "../utils/utils";
 
 export class Api {
     #onResponse(res)  {

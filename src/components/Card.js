@@ -6,7 +6,7 @@ export class Card {
       this._likes = cardData.likes;
       this._likesNumber = cardData.likes.length;
       this._link = cardData.link;
-      this._cardId = cardData._id;
+      this.cardId = cardData._id;
       this._userId = userId;
       this._ownerId = cardData.owner._id;
       this._handleDeleteCard = handleDeleteCard;
