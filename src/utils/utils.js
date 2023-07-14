@@ -30,7 +30,6 @@ export function setStatusButton({ buttonElement, text, disabled }) {
     buttonElement.textContent = text;
 }
 
-
 export const popupProfileEditForm = document.querySelector('.profile-popup');
 export const popupCardAddForm = document.querySelector('.add-popup');
 export const popupAvatarEditForm = document.querySelector('.avatar-popup');
@@ -39,6 +38,4 @@ export const submitButtonCard = popupCardAddForm.querySelector('.add-popup__subm
 export const submitButtonProfile = popupProfileEditForm.querySelector('.add-popup__submit');
 export const submitButtonAvatar = popupAvatarEditForm.querySelector('.add-popup__submit');
 
-
 export {containerCards, popupCardImgFullSize, inputNameFormAddCard, inputUrlFormAddCard};
-

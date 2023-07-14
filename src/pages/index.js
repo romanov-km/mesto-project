@@ -1,17 +1,14 @@
-import './pages/index.css'; // добавьте импорт главного файла стилей
-//import { enableValidation, makeButtonDisabled, clearErrors } from './components/validate';
-//import { addCardSubmit} from './components/cards';
-//import { closePopup, openPopup } from './components/modal';
-import { submitButtonCard, submitButtonProfile, submitButtonAvatar, containerCards, settings, setStatusButton} from './utils/utils';
-import { config } from './utils/utils';
-import { Api } from './components/api';
-import { Section } from './components/Section';
-import { UserInfo } from './components/UserInfo';
-import { Card } from './components/Card';
+import './index.css'; // добавьте импорт главного файла стилей
+import { submitButtonCard, submitButtonProfile, submitButtonAvatar, containerCards, settings, setStatusButton} from '../utils/utils';
+import { config } from '../utils/utils';
+import { Api } from '../components/api';
+import { Section } from '../components/Section';
+import { UserInfo } from '../components/UserInfo';
+import { Card } from '../components/Card';
 
-import { PopupWithForm } from './components/PopupWithForm';
-import { PopupWithImage } from './components/PopupWithImage.js';
-import { FormValidator } from './components/FormValidator';
+import { PopupWithForm } from '../components/PopupWithForm';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { FormValidator } from '../components/FormValidator';
 
 //import { popupAvatarEditForm } from './components/utils';
 
@@ -75,7 +72,6 @@ const popupCardImgFullSize = new PopupWithImage('.img-popup');
 popupCardImgFullSize.setEventListeners();
 
 function handleLikeCard(card) {
-    console.log(card);
     if (!card.checkLikes()) {
         api.likeCard(card.cardId)
             .then(data => {
@@ -135,7 +131,6 @@ function makeProfileEditForm() {
 
 const popupCardAddForm = new PopupWithForm('.add-popup', (data) => {
   setStatusButton({ buttonElement: submitButtonCard, text: 'Сохранение...', disabled: true });
-  console.log(data);
   const newCardData = {
       name: data.name,
       link: data.url,
@@ -173,7 +168,6 @@ const popupProfileEditForm = new PopupWithForm('.profile-popup', (data) => {
 popupProfileEditForm.setEventListeners();
 
 const popupAvatarEditForm = new PopupWithForm('.avatar-popup', (data) => {
-    console.log(data.url);
     setStatusButton({ buttonElement: submitButtonAvatar, text: 'Сохранение...', disabled: true });
     api.editAvatar({avatar: data.url})
         .then(updateAvatar => {
